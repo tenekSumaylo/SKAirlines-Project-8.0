@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SKAirlines_Project.Views.BookingPage"
+             Title="BookingPage"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:model="clr-namespace:SKAirlines_Project.Models">
+    <ScrollView>
+        <Grid RowDefinitions="75,800,*" ColumnDefinitions="*">
+            <VerticalStackLayout Grid.Row="0">
+                <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
+                <BoxView Color="#19B0EC" HeightRequest="2" HorizontalOptions="Fill"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="20" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" x:Name="GuestAppend">
+                    <Label Text="Hi, where would you like to go?" FontSize="22" HorizontalOptions="Start"/>
+                    <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
+                        <Label Text="Adult" FontSize="18"/>
+                        <Frame HeightRequest="50" HorizontalOptions="Start">
+                            <Entry HeightRequest="50" WidthRequest="150" IsReadOnly="True" Text="{Binding Source={x:Reference stepperK}, Path=Value}"/>
+                        </Frame>
+                        <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperK"/>
+                     </VerticalStackLayout>
+                <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
+                    <Label Text="Children" FontSize="18"/>
+                    <Frame HeightRequest="50" HorizontalOptions="Start">
+                        <Entry HeightRequest="50" WidthRequest="150" IsReadOnly="True" Text="{Binding Source={x:Reference stepperA}, Path=Value}"/>
+                    </Frame>
+                    <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperA"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
+                    <Label Text="Infant" FontSize="18"/>
+                    <Frame HeightRequest="50" HorizontalOptions="Start">
+                        <Entry HeightRequest="50" WidthRequest="150" IsReadOnly="True" Text="{Binding Source={x:Reference stepperS}, Path=Value}"/>
+                    </Frame>
+                    <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperS"/>
+                </VerticalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button HorizontalOptions="Center"  Text="Back"  WidthRequest="100" BackgroundColor="#19B0EC" Clicked="Button_Clicked_1"/>
+                    <Button HorizontalOptions="Center"  Text="Next"  WidthRequest="100" BackgroundColor="#19B0EC" Clicked="Button_Clicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" x:Name="BookFlightPage" HorizontalOptions="Center" VerticalOptions="Start">
+                <HorizontalStackLayout Spacing="0">
+                    <Button WidthRequest="75" x:Name="label1" Text="Book" FontSize="10" BackgroundColor="DodgerBlue"/>
+                    <Button WidthRequest="70" x:Name="label2" BackgroundColor="#19B0EC"/>
+                    <Button WidthRequest="70" x:Name="label3" BackgroundColor="#19B0EC"/>
+                    <Button WidthRequest="70" x:Name="label4" BackgroundColor="#19B0EC"/>
+                    <Button WidthRequest="70" x:Name="label5" BackgroundColor="#19B0EC"/>
+                </HorizontalStackLayout>
+                <CollectionView x:Name="flightsAvail" Margin="0,5,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Flight">
+                            <VerticalStackLayout>
+                                <Frame BackgroundColor="LightSkyBlue">
+                                    <Grid ColumnDefinitions="60,60,100,90,30">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                            <HorizontalStackLayout>
+                                                <Label Text="{Binding FlightTime.Hour}"/>
+                                                <Label Text=":"/>
+                                                <Label Text="{Binding FlightTime.Minute}"/>
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding OriginPlace}"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                            <Label Text="{Binding DestinationPlace}" VerticalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="2" Spacing="5">
+                                            <Label Text="{Binding FlightID}"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="3" Spacing="5">
+                                            <Label Text="All-in Fare"/>
+                                            <Label Text="{Binding Fare}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

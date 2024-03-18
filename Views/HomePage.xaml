@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SKAirlines_Project.Views.HomePage"
+             Title=""
+             NavigationPage.HasNavigationBar="False"
+             xmlns:viewmodel="clr-namespace:SKAirlines_Project.ViewModels"
+             x:DataType="viewmodel:HomePageViewModel"
+             xmlns:model="clr-namespace:SKAirlines_Project.Models"
+             xmlns:set="clr-namespace:SKAirlines_Project">
+    <ScrollView>
+        <VerticalStackLayout>
+            <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
+            <ScrollView>
+                <VerticalStackLayout>
+                    <Grid RowDefinitions="300,370,700,*">
+                        <CarouselView ItemsSource="{Binding ImagePics}" Grid.Row="0" Loop="True">
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate x:DataType="set:ClassPics">
+                                    <Image Source="{Binding ImageUrl}"/>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+
+                        <Grid Grid.Row="1" RowDefinitions="60,60,60,60,60,60" ColumnDefinitions="*" Padding="0,5,0,0" Background="White">
+                            <HorizontalStackLayout Grid.Row="0" WidthRequest="200" HorizontalOptions="Start" Spacing="10">
+                                <Image Source="flightlogointro.png" VerticalOptions="Start"/>
+                                <Label Text="|" FontAttributes="Bold" VerticalOptions="Center"/>
+                                <Picker TextColor="#333333" ItemsSource="{Binding TypeOfFlight}" SelectedIndex="{Binding SelectedFlight}" VerticalTextAlignment="End" HeightRequest="40" />
+                            </HorizontalStackLayout>
+                            <VerticalStackLayout Grid.Row="1" WidthRequest="200">
+                                <Label Text="From"/>
+                                <Picker/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="2" WidthRequest="200">
+                                <Label Text="To"/>
+                                <Picker/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="3" WidthRequest="200">
+                                <Label Text="Departure"/>
+                                <DatePicker/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="4" WidthRequest="200">
+                                <Label Text="Return"/>
+                                <DatePicker IsEnabled="{Binding PickerState}"/>
+                            </VerticalStackLayout>
+                            <Button Grid.Row="5" WidthRequest="150" Text="Search Flight" HeightRequest="40" BackgroundColor="#19B0EC" Clicked="Button_Clicked"/>
+                        </Grid>
+                        <Frame Grid.Row="2">
+                            <VerticalStackLayout>
+                                <Label Text="Why Everyone" FontSize="30"/>
+                                <Label Text="Flies" FontSize="30"/>
+                                <Image Source="mainpagepicture.png"/>
+                                <Label Text="Nella Lozada is the main reason why people flies. Nella Lozada is always high in something that i cannot understand"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                </VerticalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
