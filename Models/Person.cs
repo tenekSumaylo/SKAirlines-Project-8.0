@@ -14,6 +14,7 @@ namespace SKAirlines_Project.Models
         private string phoneNumber;
         private DateTime birthDate;
         private int ageStage;
+        private string title;
         public Person()
         {
         }
@@ -25,6 +26,18 @@ namespace SKAirlines_Project.Models
             EmailAddress = email;
             BirthDate = birth;
             AgeStage = ageS;
+            if ( ageS == 1 )
+            {
+                Title = "Adult";
+            }
+            else if ( ageS == 2 )
+            {
+                Title = "Child";
+            }
+            else
+            {
+                Title = "Infant";
+            }
         }
 
         public string FirstName
@@ -44,6 +57,16 @@ namespace SKAirlines_Project.Models
             {
                 this.lastName = value;
                 OnPropertyChanged(nameof(LastName));
+            }
+        }
+
+        public string Title
+        {
+            get => this.title;
+            set
+            {
+                this.title = value;
+                OnPropertyChanged(nameof(Title));
             }
         }
 

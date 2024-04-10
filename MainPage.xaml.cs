@@ -17,11 +17,6 @@ namespace SKAirlines_Project
             await Navigation.PushAsync( new RegisterPage());
         }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            
-        }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {

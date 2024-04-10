@@ -13,7 +13,7 @@
             <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
             <ScrollView>
                 <VerticalStackLayout>
-                    <Grid RowDefinitions="300,370,700,*">
+                    <Grid RowDefinitions="300,370,600,600">
                         <CarouselView ItemsSource="{Binding ImagePics}" Grid.Row="0" Loop="True">
                             <CarouselView.ItemTemplate>
                                 <DataTemplate x:DataType="set:ClassPics">
@@ -54,6 +54,11 @@
                                 <Label Text="Nella Lozada is the main reason why people flies. Nella Lozada is always high in something that i cannot understand"/>
                             </VerticalStackLayout>
                         </Frame>
+                        <VerticalStackLayout Grid.Row="3" Spacing="25" Padding="0,25,0,0">
+                            <ImageButton Source="boracay.png" Clicked="ImageButton_Clicked"/>
+                            <ImageButton Source="mayon.png" Clicked="ImageButton_Clicked_1"/>
+                            <ImageButton Source="palawan.png" Clicked="ImageButton_Clicked_2"/>
+                        </VerticalStackLayout>
                     </Grid>
                 </VerticalStackLayout>
             </ScrollView>
