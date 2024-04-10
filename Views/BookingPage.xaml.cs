@@ -32,4 +32,38 @@ public partial class BookingPage : ContentPage
     {
         await Navigation.PopAsync();
     }
+
+    private void Move(object sender, EventArgs e)
+    {
+        GuestAppend.IsVisible = false;
+        BookFlightPage.IsVisible = true;
+    }
+
+    /*    private void ChangeColor( int n )
+        {
+            Color[] MenuColors = new Color[5];
+
+            for ( int i = 0; i < MenuColors.Length; ++i )
+            {
+                if ( i == n )
+                {
+                    MenuColors[i] = Color.FromArgb("1E90F");
+                }
+                else
+                {
+                    MenuColors[i] = Color.FromArgb("19B0EC");
+                }
+            }
+            label1.BackgroundColor = MenuColors[0];
+            label2.BackgroundColor = MenuColors[1];
+            label3.BackgroundColor = MenuColors[2];
+            label4.BackgroundColor = MenuColors[3];
+            label5.BackgroundColor = MenuColors[4];
+        } */
+
+    private void Button_Clicked_2(object sender, EventArgs e)
+    {
+        GuestAppend.IsVisible = true;
+        BookFlightPage.IsVisible = false;
+    } 
 }

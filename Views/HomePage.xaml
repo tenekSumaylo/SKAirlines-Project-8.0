@@ -17,7 +17,7 @@
                         <CarouselView ItemsSource="{Binding ImagePics}" Grid.Row="0" Loop="True">
                             <CarouselView.ItemTemplate>
                                 <DataTemplate x:DataType="set:ClassPics">
-                                    <Image Source="{Binding ImageUrl}"/>
+                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
                                 </DataTemplate>
                             </CarouselView.ItemTemplate>
                         </CarouselView>

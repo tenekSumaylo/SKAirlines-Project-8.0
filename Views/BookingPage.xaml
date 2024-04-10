@@ -6,12 +6,14 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:model="clr-namespace:SKAirlines_Project.Models">
     <ScrollView>
-        <Grid RowDefinitions="75,800,*" ColumnDefinitions="*">
+        <Grid RowDefinitions="60,500,*" ColumnDefinitions="*">
             <VerticalStackLayout Grid.Row="0">
                 <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
                 <BoxView Color="#19B0EC" HeightRequest="2" HorizontalOptions="Fill"/>
             </VerticalStackLayout>
-            <VerticalStackLayout Spacing="20" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" x:Name="GuestAppend">
+            
+            <!--#region -->
+            <VerticalStackLayout Spacing="20" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" x:Name="GuestAppend" Margin="0,25,0,0">
                     <Label Text="Hi, where would you like to go?" FontSize="22" HorizontalOptions="Start"/>
                     <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
                         <Label Text="Adult" FontSize="18"/>
@@ -39,44 +41,70 @@
                     <Button HorizontalOptions="Center"  Text="Next"  WidthRequest="100" BackgroundColor="#19B0EC" Clicked="Button_Clicked"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
+            
+            <!--#region -->
             <VerticalStackLayout Grid.Row="1" x:Name="BookFlightPage" HorizontalOptions="Center" VerticalOptions="Start">
-                <HorizontalStackLayout Spacing="0">
-                    <Button WidthRequest="75" x:Name="label1" Text="Book" FontSize="10" BackgroundColor="DodgerBlue"/>
-                    <Button WidthRequest="70" x:Name="label2" BackgroundColor="#19B0EC"/>
-                    <Button WidthRequest="70" x:Name="label3" BackgroundColor="#19B0EC"/>
-                    <Button WidthRequest="70" x:Name="label4" BackgroundColor="#19B0EC"/>
-                    <Button WidthRequest="70" x:Name="label5" BackgroundColor="#19B0EC"/>
+                <HorizontalStackLayout HeightRequest="65">
+                    <Frame WidthRequest="100" HasShadow="True">
+                        <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center" BackgroundColor="Gray">
+                            <Label Text="30, Mar" HorizontalOptions="Center"/>
+                            <BoxView Color="#19B0EC" HeightRequest="2" WidthRequest="25"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame WidthRequest="100" HasShadow="True">
+                        <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center" BackgroundColor="Gray">
+                            <Label Text="30, Mar" HorizontalOptions="Center"/>
+                            <BoxView Color="White" HeightRequest="2" WidthRequest="25"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame WidthRequest="100" HasShadow="True">
+                        <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center" BackgroundColor="Gray">
+                            <Label Text="30, Mar" HorizontalOptions="Center"/>
+                            <BoxView Color="White" HeightRequest="2" WidthRequest="25"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <DatePicker VerticalOptions="Center" WidthRequest="80" Margin="8,0,0,0"/>
                 </HorizontalStackLayout>
-                <CollectionView x:Name="flightsAvail" Margin="0,5,0,0">
+                <Grid RowDefinitions="600, *">
+                    <CollectionView x:Name="flightsAvail" Margin="0,5,0,0" Grid.Row="0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Flight">
-                            <VerticalStackLayout>
-                                <Frame BackgroundColor="LightSkyBlue">
-                                    <Grid ColumnDefinitions="60,60,100,90,30">
-                                        <VerticalStackLayout Grid.Column="0" Spacing="5">
-                                            <HorizontalStackLayout>
-                                                <Label Text="{Binding FlightTime.Hour}"/>
-                                                <Label Text=":"/>
-                                                <Label Text="{Binding FlightTime.Minute}"/>
-                                            </HorizontalStackLayout>
-                                            <Label Text="{Binding OriginPlace}"/>
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="1" Spacing="5">
-                                            <Label Text="{Binding DestinationPlace}" VerticalOptions="Center"/>
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="2" Spacing="5">
-                                            <Label Text="{Binding FlightID}"/>
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="3" Spacing="5">
-                                            <Label Text="All-in Fare"/>
-                                            <Label Text="{Binding Fare}"/>
-                                        </VerticalStackLayout>
-                                    </Grid>
-                                </Frame>
-                            </VerticalStackLayout>
+                            <ScrollView>
+                                    <HorizontalStackLayout Margin="0,0,0,10">
+                                        <Image Source="bookflightdesign.png" HorizontalOptions="Start" Aspect="Fill"/>
+                                        <Frame BackgroundColor="White" HeightRequest="125" WidthRequest="380" Margin="0,0,0,0" HasShadow="True">
+                                            <Grid ColumnDefinitions="80,100,90,30" HorizontalOptions="Start">
+                                                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                                    <HorizontalStackLayout>
+                                                        <Label Text="{Binding FlightTime.Hour}"/>
+                                                        <Label Text=":"/>
+                                                        <Label Text="{Binding FlightTime.Minute}"/> 
+                                                    </HorizontalStackLayout>
+                                                    <Label Text="{Binding OriginPlace}"/>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="1" Spacing="5" Background="Red">
+                                                    <Label Text="{Binding DestinationPlace}" VerticalOptions="Center"/>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="2" Spacing="5">
+                                                    <Label Text="{Binding FlightID}"/>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="3" Spacing="5">
+                                                    <Label Text="All-in Fare"/>
+                                                    <Label Text="{Binding Fare}"/>
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </HorizontalStackLayout>
+                                </ScrollView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                    <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+                        <Button Text="Back" WidthRequest="80" Clicked="Button_Clicked_2" BackgroundColor="#19B0EC"/>
+                    </HorizontalStackLayout>
+                </Grid>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
