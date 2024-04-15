@@ -144,6 +144,8 @@
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>
+            
+            <!--#region -->
             <VerticalStackLayout Grid.Row="1" x:Name="AddOns" Padding="0,10,0,0">
                 <VerticalStackLayout Padding="10,0,0,0">
                     <Label Text="Customize your flight with" FontAttributes="Bold" FontSize="25"/>
@@ -155,7 +157,7 @@
                     <ImageButton Source="baggageselector.png"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
-
+      <!--#region -->
             <Grid Grid.Row="1" x:Name="seatSelection">
                 <Image Source="seatselectorbg.png"/>
                 <VerticalStackLayout>
