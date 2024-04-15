@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SKAirlines_Project.Models
 {
-    public class Person : BaseModel
+    public class Passenger : BaseModel
     {
         private string firstName;
         private string lastName;
@@ -15,11 +15,11 @@ namespace SKAirlines_Project.Models
         private DateTime birthDate;
         private int ageStage;
         private string title;
-        public Person()
+        public Passenger()
         {
         }
 
-        public Person(string firstN, string lastN, string email, DateTime birth, int ageS)
+        public Passenger(string firstN, string lastN, string email, DateTime birth, int ageS)
         {
             FirstName = firstN;
             LastName = lastN;

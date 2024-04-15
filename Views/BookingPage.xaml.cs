@@ -8,9 +8,9 @@ public partial class BookingPage : ContentPage
     public ObservableCollection<Flight> FlightsAvailable {  get; set; }
     public Flight DummyFlight1;
     public Flight DummyFlight2;
-    public Person person1;
-    public Person person2;
-    public ObservableCollection<Person> GuestsInput {  get; set; }
+    public Passenger person1;
+    public Passenger person2;
+    public ObservableCollection<Passenger> GuestsInput {  get; set; }
     public BookingPage()
 	{
 		InitializeComponent();
@@ -24,9 +24,9 @@ public partial class BookingPage : ContentPage
         FlightsAvailable.Add(DummyFlight1);
         FlightsAvailable.Add(DummyFlight2);
         flightsAvail.ItemsSource = FlightsAvailable;
-        GuestsInput = new ObservableCollection<Person>();
-        person1 = new Person("Kevin", "Durant", "hehe@gmail.com", DateTime.Now, 1);
-        person2 = new Person("John", "Durant", "hehe@gmail.com", DateTime.Now, 3);
+        GuestsInput = new ObservableCollection<Passenger>();
+        person1 = new Passenger("Kevin", "Durant", "hehe@gmail.com", DateTime.Now, 1);
+        person2 = new Passenger("John", "Durant", "hehe@gmail.com", DateTime.Now, 3);
         GuestsInput.Add(person1);
         GuestsInput.Add(person2);
         inputG.IsVisible = false;

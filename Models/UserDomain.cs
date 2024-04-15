@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SKAirlines_Project.Models
 {
-    public class UserDomain : Person
+    public class UserDomain : Passenger
     {
         string userID = string.Empty;
         string password = string.Empty;

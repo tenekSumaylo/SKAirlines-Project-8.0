@@ -114,7 +114,7 @@
             <VerticalStackLayout Grid.Row="1" x:Name="inputG" >
                 <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Person">
+                        <DataTemplate x:DataType="model:Passenger">
                             <Frame Margin="5,0,0,0" HeightRequest="65" BackgroundColor="#19B0EC" CornerRadius="50">
                                 <HorizontalStackLayout>
                                     <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" VerticalOptions="Start" FontSize="15"/>
@@ -144,6 +144,8 @@
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>
+            
+            <!--#region -->
             <VerticalStackLayout Grid.Row="1" x:Name="AddOns" Padding="0,10,0,0">
                 <VerticalStackLayout Padding="10,0,0,0">
                     <Label Text="Customize your flight with" FontAttributes="Bold" FontSize="25"/>
@@ -155,7 +157,7 @@
                     <ImageButton Source="baggageselector.png"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
-
+      <!--#region -->
             <Grid Grid.Row="1" x:Name="seatSelection">
                 <Image Source="seatselectorbg.png"/>
                 <VerticalStackLayout>
