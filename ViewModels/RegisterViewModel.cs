@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SKAirlines_Project.ViewModels
 {
-    class RegisterViewModel
+    public class RegisterViewModel
     {
+        private 
+        public RegisterViewModel() { }
     }
 }

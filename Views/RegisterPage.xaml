@@ -22,6 +22,10 @@
                         <Entry WidthRequest="200" BackgroundColor="LightGray"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="Birth Date" FontAttributes="Bold" />
+                        <DatePicker WidthRequest="200" BackgroundColor="LightGray"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="Password" FontAttributes="Bold" />
                         <Entry WidthRequest="200" BackgroundColor="LightGray"/>
                     </VerticalStackLayout >

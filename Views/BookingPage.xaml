@@ -5,6 +5,26 @@
              Title="BookingPage"
              NavigationPage.HasNavigationBar="False"
              xmlns:model="clr-namespace:SKAirlines_Project.Models">
+    <ContentPage.Resources>
+        <Style TargetType="Border">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="White"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Pink"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <ScrollView>
         <Grid RowDefinitions="60,800,*" ColumnDefinitions="*">
             <VerticalStackLayout Grid.Row="0">
@@ -71,36 +91,34 @@
                     <CollectionView x:Name="flightsAvail" Margin="0,5,0,0" Grid.Row="0" SelectionMode="Single" SelectionChanged="FlightsAvail_SelectionChanged">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Flight">
-                                <ScrollView>
-                                    <HorizontalStackLayout Margin="0,0,0,10" Padding="5,0,0,0">
-                                        <Image Source="bookflightdesign.png" HorizontalOptions="Start" Aspect="Fill"/>
-                                        <Frame BackgroundColor="White" HeightRequest="125" WidthRequest="370" Margin="0,0,0,0" HasShadow="True">
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                            </Frame.GestureRecognizers>
-                                            <Grid ColumnDefinitions="80,100,90,30" HorizontalOptions="Start">
-                                                <VerticalStackLayout Grid.Column="0" Spacing="5">
-                                                    <HorizontalStackLayout>
-                                                        <Label Text="{Binding FlightTime.Hour}"/>
-                                                        <Label Text=":"/>
-                                                        <Label Text="{Binding FlightTime.Minute}"/>
-                                                    </HorizontalStackLayout>
-                                                    <Label Text="{Binding OriginPlace}"/>
-                                                </VerticalStackLayout>
-                                                <VerticalStackLayout Grid.Column="1" Spacing="5" Background="White">
-                                                    <Label Text="{Binding DestinationPlace}" VerticalOptions="Center"/>
-                                                </VerticalStackLayout>
-                                                <VerticalStackLayout Grid.Column="2" Spacing="5">
-                                                    <Label Text="{Binding FlightID}"/>
-                                                </VerticalStackLayout>
-                                                <VerticalStackLayout Grid.Column="3" Spacing="5">
-                                                    <Label Text="All-in Fare"/>
-                                                    <Label Text="{Binding Fare}"/>
-                                                </VerticalStackLayout>
-                                            </Grid>
-                                        </Frame>
-                                    </HorizontalStackLayout>
-                                </ScrollView>
+                                <HorizontalStackLayout Margin="0,0,0,10" Padding="5,0,0,0">
+                                    <Image Source="bookflightdesign.png" HorizontalOptions="Start" Aspect="Fill"/>
+                                    <Frame BackgroundColor="White" HeightRequest="125" WidthRequest="370" Margin="0,0,0,0" HasShadow="True">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                        </Frame.GestureRecognizers>
+                                        <Grid ColumnDefinitions="80,100,90,30" HorizontalOptions="Start">
+                                            <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                                <HorizontalStackLayout>
+                                                    <Label Text="{Binding FlightTime.Hour}"/>
+                                                    <Label Text=":"/>
+                                                    <Label Text="{Binding FlightTime.Minute}"/>
+                                                </HorizontalStackLayout>
+                                                <Label Text="{Binding OriginPlace}"/>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="1" Spacing="5" Background="White">
+                                                <Label Text="{Binding DestinationPlace}" VerticalOptions="Center"/>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="2" Spacing="5">
+                                                <Label Text="{Binding FlightID}"/>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="3" Spacing="5">
+                                                <Label Text="All-in Fare"/>
+                                                <Label Text="{Binding Fare}"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </HorizontalStackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -112,24 +130,37 @@
             <!--#region -->
 
             <VerticalStackLayout Grid.Row="1" x:Name="inputG" >
-                <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0">
+                <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0" SelectionMode="Single">
                     <CollectionView.ItemTemplate>
+<<<<<<< HEAD
                         <DataTemplate x:DataType="model:Passenger">
                             <Frame Margin="5,0,0,0" HeightRequest="65" BackgroundColor="#19B0EC" CornerRadius="50">
                                 <HorizontalStackLayout>
                                     <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" VerticalOptions="Start" FontSize="15"/>
                                 </HorizontalStackLayout>
                             </Frame>
+=======
+                        <DataTemplate x:DataType="model:Person">
+                            <Border Margin="5,0,0,0" HeightRequest="50" WidthRequest="90" Stroke="Black">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="30,30,30,30"/>
+                                </Border.StrokeShape>
+                                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" VerticalOptions="Center" FontSize="15"/>
+                            </Border>
+>>>>>>> RegisterPageStructuring
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                
                 <VerticalStackLayout Margin="0,20,0,0" HorizontalOptions="FillAndExpand" >
-                    <Frame BackgroundColor="LightGrey">
+                    <Frame BackgroundColor="LightGrey" WidthRequest="380">
                         <VerticalStackLayout>
                         <Label Text="Name" TextColor="Black" FontAttributes="Bold" FontSize="25"/>
                             <Label Text="First Name                        Last Name" FontAttributes="Bold"/>
                             <HorizontalStackLayout Spacing="5">
-                                <Entry WidthRequest="150"/>
+                                <Border WidthRequest="150" Stroke="Black">
+                                    <Entry WidthRequest="150"/>
+                                </Border>
                                 <Entry WidthRequest="150"/>
                             </HorizontalStackLayout>
                             <Label Text="Date of Birth" TextColor="Black" FontAttributes="Bold" FontSize="25" Padding="0,10,0,0"/>
