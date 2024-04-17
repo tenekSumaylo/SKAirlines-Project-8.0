@@ -9,6 +9,7 @@ public partial class HomePage : ContentPage
     AdminService checkFlights = new AdminService("Flights.json");
     public string theOrigin { get; set; }
     public string theDestination { get; set; }
+    public DateTime OneWay { get; set;  }
 	public HomePage( HomePageViewModel vm )
 	{
 		InitializeComponent();
@@ -17,6 +18,7 @@ public partial class HomePage : ContentPage
         ToPlace.ItemsSource = originPlaces;
         FromPlace.SelectedIndex = 1;
         ToPlace.SelectedIndex = 1;
+        OneWayTo.Date = DateTime.Now;
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
@@ -33,9 +35,9 @@ public partial class HomePage : ContentPage
         theOrig = GetPlace(FromPlace.SelectedIndex);
         foreach ( var f in availableFlights )
         {
-            if ( f.OriginPlace == theOrig && f.DestinationPlace == findDest )
+            if ( f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month ==  OneWayTo.Date.Month && f.FlightDate.Year == OneWayTo.Date.Year && f.FlightDate.Day == OneWayTo.Date.Day)
             {
-                await Navigation.PushAsync(new BookingPage( f.OriginPlace, f.DestinationPlace));
+                await Navigation.PushAsync(new BookingPage(f.DestinationPlace, f.OriginPlace, f.FlightDate ));
                 j++;
             }
         }

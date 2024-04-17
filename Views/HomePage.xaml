@@ -38,7 +38,7 @@
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="3" WidthRequest="200">
                                 <Label Text="Departure"/>
-                                <DatePicker/>
+                                <DatePicker x:Name="OneWayTo"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="4" WidthRequest="200">
                                 <Label Text="Return"/>

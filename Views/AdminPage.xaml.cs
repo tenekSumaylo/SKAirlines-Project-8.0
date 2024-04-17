@@ -11,6 +11,7 @@ public partial class AdminPage : ContentPage
 	public string Dest { get; set; }
 	public string testSeat { get; set; }
 	public int seats { get; set; }
+	public DateTime flightTime;
 	AdminService adservice;
     public AdminPage()
 	{
@@ -20,6 +21,8 @@ public partial class AdminPage : ContentPage
 		destination.ItemsSource = originPlaces;
 		adservice = new AdminService("Flights.json");
 		theFlight = new Flight();
+		flightTime = DateTime.Now;
+		dateFlight.Date = DateTime.Now;
 	}
 
 	List<string> originPlaces = new List<string>()
@@ -34,8 +37,9 @@ public partial class AdminPage : ContentPage
     {
 		theFlight.OriginPlace = GetPlace( origin.SelectedIndex);
 		theFlight.DestinationPlace = GetPlace( destination.SelectedIndex);
-		seats = Convert.ToInt32(testSeat);
+		seats = Convert.ToInt32(numSeat.Text);
 		theFlight.NumberOfSeats = seats;
+		theFlight.FlightDate = dateFlight.Date;
 		//MakeSeats();
 		ObservableCollection<Flight> theFlights = await adservice.GetFlights();
 		theFlights.Add(theFlight);

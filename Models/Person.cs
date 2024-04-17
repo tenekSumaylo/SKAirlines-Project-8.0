@@ -27,6 +27,23 @@ namespace SKAirlines_Project.Models
              
         }
 
+        public Passenger( int ageS )
+        {
+            if (ageS == 1)
+            {
+                Title = "Adult";
+            }
+            else if (ageS == 2)
+            {
+                Title = "Child";
+            }
+            else
+            {
+                Title = "Infant";
+            }
+
+        }
+
         public Passenger(string firstN, string lastN, string email, DateTime birth, int ageS)
         {
             FirstName = firstN;
