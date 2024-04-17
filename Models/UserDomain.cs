@@ -12,7 +12,12 @@ namespace SKAirlines_Project.Models
         string userID = string.Empty;
         string password = string.Empty;
         int userType;
-        public UserDomain() { }
+        private ObservableCollection<BookedFlight> bookedFlights;
+        private ObservableCollection<BoardingPass> boardingPasses;
+        public UserDomain() {
+            BookedFlights = new ObservableCollection<BookedFlight>();
+            BoardingPasses = new ObservableCollection<BoardingPass>();
+        }
 
         public UserDomain(string user, string pass, int userData)
         {
@@ -51,13 +56,37 @@ namespace SKAirlines_Project.Models
             }
         }
 
-        private void UserClear()
+        public ObservableCollection<BookedFlight> BookedFlights
         {
+            get => this.bookedFlights;
+            set
+            {
+                this.bookedFlights = value;
+                OnPropertyChanged(nameof(BookedFlights));
+            }
+        }
+
+        public ObservableCollection<BoardingPass> BoardingPasses
+        {
+            get => this.boardingPasses;
+            set
+            {
+                this.boardingPasses = value;
+                OnPropertyChanged(nameof(BoardingPasses));
+            }
+        }
+
+        public void UserClear()
+        {
+            BoardingPasses.Clear();
+            BookedFlights.Clear();
             userID = String.Empty;
             Password = String.Empty;
             UserType = -1;
             ClearForm();
         }
+
+
 
     }
 }

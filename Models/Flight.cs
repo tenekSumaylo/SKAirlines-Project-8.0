@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,9 @@ namespace SKAirlines_Project.Models
         private string destinationPlace = string.Empty;
         private string flightID = string.Empty;
         private double fare;
+        private ObservableCollection<Seat> theSeats;
 
+        public Flight() { }
         public Flight(string planeName, DateTime flightDate, DateTime flightTime, int numberOfSeats, bool isDeleted, bool isDeparted, string originPlace, string destinationPlace, string flightID)
         {
             PlaneName = planeName;
@@ -59,6 +62,16 @@ namespace SKAirlines_Project.Models
             {
                 this.flightDate = value;
                 OnPropertyChanged( nameof(FlightDate));
+            }
+        }
+
+        public ObservableCollection<Seat> TheSeats
+        {
+            get => this.theSeats;
+            set
+            {
+                this.theSeats = value;
+                OnPropertyChanged(nameof(TheSeats));
             }
         }
 

@@ -132,22 +132,15 @@
             <VerticalStackLayout Grid.Row="1" x:Name="inputG" >
                 <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0" SelectionMode="Single">
                     <CollectionView.ItemTemplate>
-<<<<<<< HEAD
                         <DataTemplate x:DataType="model:Passenger">
-                            <Frame Margin="5,0,0,0" HeightRequest="65" BackgroundColor="#19B0EC" CornerRadius="50">
-                                <HorizontalStackLayout>
-                                    <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" VerticalOptions="Start" FontSize="15"/>
-                                </HorizontalStackLayout>
-                            </Frame>
-=======
-                        <DataTemplate x:DataType="model:Person">
-                            <Border Margin="5,0,0,0" HeightRequest="50" WidthRequest="90" Stroke="Black">
+                            <Border Margin="5,0,0,0" HeightRequest="80"  WidthRequest="80">
                                 <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="30,30,30,30"/>
+                                    <RoundRectangle CornerRadius="100,100,100,100"/>
                                 </Border.StrokeShape>
-                                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" VerticalOptions="Center" FontSize="15"/>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding Title}"  HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" VerticalOptions="Center" FontSize="15" />
+                                </HorizontalStackLayout>
                             </Border>
->>>>>>> RegisterPageStructuring
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

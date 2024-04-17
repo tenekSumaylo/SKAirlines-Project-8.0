@@ -1,4 +1,5 @@
 using SKAirlines_Project.Models;
+using SKAirlines_Project.Services;
 using System.Collections.ObjectModel;
 
 namespace SKAirlines_Project.Views;
@@ -11,18 +12,14 @@ public partial class BookingPage : ContentPage
     public Passenger person1;
     public Passenger person2;
     public ObservableCollection<Passenger> GuestsInput {  get; set; }
-    public BookingPage()
+    private AdminService adService = new AdminService("Flights.json");
+    public BookingPage( string destination, string origin )
 	{
 		InitializeComponent();
 		BindingContext = this;
         BookFlightPage.IsVisible = false;
         FlightsAvailable = new ObservableCollection<Flight>();
-        DummyFlight1 = new Flight("Plane One", DateTime.Now, DateTime.Now, 10, false, false, "Cebu", "Manila", "CebManila000");
-        DummyFlight1.Fare = 500;
-        DummyFlight2 = new Flight("Plane Two", DateTime.Now, DateTime.Now, 10, false, false, "Tacloban", "Manila", "TacManila0001");
-        DummyFlight2.Fare = 1000;
-        FlightsAvailable.Add(DummyFlight1);
-        FlightsAvailable.Add(DummyFlight2);
+        FindFlight();
         flightsAvail.ItemsSource = FlightsAvailable;
         GuestsInput = new ObservableCollection<Passenger>();
         person1 = new Passenger("Kevin", "Durant", "hehe@gmail.com", DateTime.Now, 1);
@@ -33,6 +30,11 @@ public partial class BookingPage : ContentPage
         Guests.ItemsSource = GuestsInput;
         AddOns.IsVisible = false;
         seatSelection.IsVisible = false;
+    }
+
+    public async void FindFlight()
+    {
+        FlightsAvailable = await adService.GetFlights();
     }
     private void Button_Clicked(object sender, EventArgs e)
     {

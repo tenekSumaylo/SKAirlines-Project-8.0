@@ -1,6 +1,4 @@
-﻿using Android.Icu.Util;
-using Android.Widget;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SKAirlines_Project.Models
 {
-    public class Ticket : BaseModel
+    public class Ticket : Passenger
     {
         private string ticketID = string.Empty;
         private ObservableCollection<Luggage> luggages;

@@ -30,11 +30,11 @@
                             </HorizontalStackLayout>
                             <VerticalStackLayout Grid.Row="1" WidthRequest="200">
                                 <Label Text="From"/>
-                                <Picker/>
+                                <Picker x:Name="FromPlace"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="2" WidthRequest="200">
                                 <Label Text="To"/>
-                                <Picker/>
+                                <Picker x:Name="ToPlace"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="3" WidthRequest="200">
                                 <Label Text="Departure"/>
@@ -55,9 +55,9 @@
                             </VerticalStackLayout>
                         </Frame>
                         <VerticalStackLayout Grid.Row="3" Spacing="25" Padding="0,25,0,0">
-                            <ImageButton Source="boracay.png" Clicked="ImageButton_Clicked"/>
-                            <ImageButton Source="mayon.png" Clicked="ImageButton_Clicked_1"/>
-                            <ImageButton Source="palawan.png" Clicked="ImageButton_Clicked_2"/>
+                            <ImageButton Source="boracay.png" />
+                            <ImageButton Source="mayon.png" />
+                            <ImageButton Source="palawan.png" />
                         </VerticalStackLayout>
                     </Grid>
                 </VerticalStackLayout>

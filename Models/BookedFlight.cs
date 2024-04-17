@@ -1,5 +1,4 @@
-﻿using Kotlin.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +13,8 @@ namespace SKAirlines_Project.Models
         private Payment paymentSlip;
         private ObservableCollection<Ticket> tickets;
         private Flight flightID;
-
+        
+        public BookedFlight() { }
         public string BookedFlightID
         {
             get => this.bookedFlightID;

@@ -17,6 +17,14 @@ namespace SKAirlines_Project.Models
         private string title;
         public Passenger()
         {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            EmailAddress = string.Empty;
+            PhoneNumber = string.Empty;
+            BirthDate = DateTime.Now;
+            AgeStage = 0;
+            Title = string.Empty;
+             
         }
 
         public Passenger(string firstN, string lastN, string email, DateTime birth, int ageS)

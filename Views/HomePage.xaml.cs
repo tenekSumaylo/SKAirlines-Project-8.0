@@ -1,32 +1,73 @@
 using System.Collections.ObjectModel;
+using SKAirlines_Project.Models;
+using SKAirlines_Project.Services;
 using SKAirlines_Project.ViewModels;
 namespace SKAirlines_Project.Views;
 
 public partial class HomePage : ContentPage
 {
+    AdminService checkFlights = new AdminService("Flights.json");
+    public string theOrigin { get; set; }
+    public string theDestination { get; set; }
 	public HomePage( HomePageViewModel vm )
 	{
 		InitializeComponent();
 		BindingContext = vm;
+        FromPlace.ItemsSource = originPlaces;
+        ToPlace.ItemsSource = originPlaces;
+        FromPlace.SelectedIndex = 1;
+        ToPlace.SelectedIndex = 1;
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync( new BookingPage() );
+        string findDest, theOrig;
+        ObservableCollection<Flight> availableFlights = await checkFlights.GetFlights();
+        int j = 0;
+        if ( FromPlace.SelectedIndex == 0 || ToPlace.SelectedIndex == 0 )
+        {
+            return;
+        }
+
+        findDest = GetPlace( ToPlace.SelectedIndex );
+        theOrig = GetPlace(FromPlace.SelectedIndex);
+        foreach ( var f in availableFlights )
+        {
+            if ( f.OriginPlace == theOrig && f.DestinationPlace == findDest )
+            {
+                await Navigation.PushAsync(new BookingPage( f.OriginPlace, f.DestinationPlace));
+                j++;
+            }
+        }
+        if ( j == 0 )
+        {
+            await DisplayAlert("Flight Not Found", "No Flights Avaialble", "Confirm");
+        }
+
     }
 
-    private async void ImageButton_Clicked(object sender, EventArgs e)
+    private string GetPlace( int indexed )
     {
-        await Navigation.PushAsync(new BookingPage());
+        int i = 0;
+
+        foreach ( string s in originPlaces )
+        {
+            if ( i == indexed )
+            {
+                return s;
+            }
+            ++i;
+        }
+        return "";
     }
 
-    private async void ImageButton_Clicked_1(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new BookingPage());
-    }
 
-    private async void ImageButton_Clicked_2(object sender, EventArgs e)
+    List<string> originPlaces = new List<string>()
     {
-        await Navigation.PushAsync(new BookingPage());
-    }
+        "SELECT","Bacolod", "Bohol", "Boracay (Caticlan)", "Butuan", "Cagayan de Oro", "Calbayog", "Camiguin", "Cebu", "Clark",
+        "Coron (Busuanga)", "Cotabato", "Davao", "Dipolog", "Dumaguete", "Iloilo", "Kalibo", "Laoag", "Legazpi (Daraga)",
+        "Manila", "Masbate", "Naga", "Ozamiz", "Pagadian", "Puerto Princesa", "Roxas", "San Jose (Mindoro)", "Siargao",
+        "Surigao", "Tacloban", "Tawi-Tawi", "Tuguegarao", "Virac", "Zamboanga"
+    };
+
 }

@@ -3,38 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SKAirlines_Project.Views.RegisterPage"
              Title="Register Page"
-             >
+             xmlns:viewModels="clr-namespace:SKAirlines_Project.ViewModels"
+             x:DataType="viewModels:RegisterViewModel">
     <Grid>
         <Image Source="registerpage.png" Aspect="AspectFill"/>
         <VerticalStackLayout Margin="0,10,0,0">
-            <Frame WidthRequest="280" HeightRequest="500" CornerRadius="50">
+            <Frame WidthRequest="280" HeightRequest="700" CornerRadius="50">
                 <FlexLayout Direction="Column" JustifyContent="SpaceEvenly">
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="Username" FontAttributes="Bold" />
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding ThePerson.UserID}"/>
+                    </VerticalStackLayout >
+                    <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="First Name" FontAttributes="Bold" />
-                        <Entry WidthRequest="200" BackgroundColor="LightGray"/>
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding ThePerson.FirstName}"/>
                     </VerticalStackLayout >
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="Last Name" FontAttributes="Bold" />
-                        <Entry WidthRequest="200" BackgroundColor="LightGray"/>
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding ThePerson.LastName}"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="Email Name" FontAttributes="Bold" />
-                        <Entry WidthRequest="200" BackgroundColor="LightGray"/>
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding ThePerson.EmailAddress}"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="Phone Number" FontAttributes="Bold" />
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding ThePerson.PhoneNumber}" Keyboard="Numeric"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="Birth Date" FontAttributes="Bold" />
-                        <DatePicker WidthRequest="200" BackgroundColor="LightGray"/>
+                        <DatePicker WidthRequest="200" BackgroundColor="LightGray" Date="{Binding ThePerson.BirthDate}"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="Password" FontAttributes="Bold" />
-                        <Entry WidthRequest="200" BackgroundColor="LightGray"/>
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding ThePerson.Password}" IsPassword="True"/>
                     </VerticalStackLayout >
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="Confirm Password" FontAttributes="Bold" />
-                        <Entry WidthRequest="200" BackgroundColor="LightGray"/>
+                        <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding confirmPassword}" IsPassword="True"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
-                        <Button WidthRequest="94" HeightRequest="40" Text="Create" BackgroundColor="#19B0EC" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                        <Button WidthRequest="94" HeightRequest="40" Text="Create" BackgroundColor="#19B0EC" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Clicked="Button_Clicked"/>
                     </VerticalStackLayout>
                 </FlexLayout>
             </Frame>
