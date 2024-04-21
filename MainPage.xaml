@@ -5,7 +5,8 @@
              xmlns:customControl ="clr-namespace:SKAirlines_Project.CustomControl"
              x:Name="mainPage"
              Shell.NavBarIsVisible="False"
-             NavigationPage.HasNavigationBar="False">
+             xmlns:viewModels="clr-namespace:SKAirlines_Project.ViewModels"
+             x:DataType="viewModels:MainPageViewModel">
     <Grid>
         <Image Source="landingpage.png" Aspect="AspectFill"/>
         <VerticalStackLayout Margin="0,90,0,0">
@@ -24,11 +25,11 @@
                         <Label Text="New User? " FontAttributes="Bold"/>
                         <Label Text="Sign Up" FontAttributes="Bold" TextDecorations="Underline" >
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                <TapGestureRecognizer Command="{Binding TapCommand}"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </HorizontalStackLayout>
-                    <Button CornerRadius="18" BackgroundColor="#0078AA" Text="Log in" WidthRequest="238" Clicked="Button_Clicked"/>
+                    <Button CornerRadius="18" BackgroundColor="#0078AA" Text="Log in" WidthRequest="238" Command="{Binding LoginCommand}"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </VerticalStackLayout>

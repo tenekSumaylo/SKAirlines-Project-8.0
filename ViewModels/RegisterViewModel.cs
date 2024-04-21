@@ -29,6 +29,12 @@ namespace SKAirlines_Project.ViewModels
         }
 
         public ICommand RegisterCommand => new Command( RegisterAccount );
+        public ICommand ReturnCommand => new Command(Return);
+
+        public async void Return()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
 
         public async void RegisterAccount()
         {
@@ -39,6 +45,8 @@ namespace SKAirlines_Project.ViewModels
                 ThePerson.Title = ThePerson.AgeStage == 1 ? "Adult" : ThePerson.AgeStage == 2 ? "Child" : "Infant";
                 theUsers.Add(ThePerson);
                 userServicer.SaveToFile( theUsers );
+                await Shell.Current.DisplayAlert("Registered", "Successfully Registered Account", "Close");
+                await Shell.Current.GoToAsync("..");
             }
             else
             {

@@ -1,21 +1,62 @@
-﻿using System;
+﻿using SKAirlines_Project.Models;
+using SKAirlines_Project.ServiceModel;
+using SKAirlines_Project.Services;
+using SKAirlines_Project.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SKAirlines_Project.ViewModels
 {
+    [QueryProperty(nameof(TheUser), nameof(TheUser))]
     public class HomePageViewModel : BaseViewModel
     {
+        AdminService checkFlights = new AdminService("Flights.json");
+        private UserDomain theUser; 
         private ObservableCollection<ClassPics> imagePics;
-        private int selectedFlight;
+        private int flightType;
+        private int selectedFlightOne;
+        private int selectedFlightTwo;
         private bool pickerState;
+        private DateTime oneWay;
+        private DateTime twoWay;
+        private bool isRoundTrip;
+        public List<string> Places { get; set; }
+
+        public DataPasser TheDataPassed { get; set; }
+        public ICommand SearchCommand => new Command(SearchFlight);
+
         public List<string> TypeOfFlight { get; set; }
         public HomePageViewModel() {
             ImagePics = new ObservableCollection<ClassPics>();
             AddData();
+            Places = ReturnPlaces();
+            OneWay = DateTime.Now;
+            TwoWay = DateTime.Now;
+        }
+
+        public UserDomain TheUser
+        {
+            get => this.theUser;
+            set
+            {
+                this.theUser = value;
+                OnPropertyChanged(nameof(TheUser));
+            }
+        }
+
+        public bool IsRoundTrip
+        {
+            get => this.isRoundTrip;
+            set
+            {
+                this.isRoundTrip = value;
+                OnPropertyChanged(nameof(IsRoundTrip));
+            }
         }
 
         public bool PickerState
@@ -28,21 +69,43 @@ namespace SKAirlines_Project.ViewModels
             }
         }
 
-        public int SelectedFlight
+        public int SelectedFlightOne
         {
-            get => selectedFlight;
+            get => this.selectedFlightOne;
             set
             {
-                selectedFlight = value;
+                this.selectedFlightOne = value;
+                OnPropertyChanged(nameof(SelectedFlightOne));
+            }
+        }
+
+        public int SelectedFlightTwo
+        {
+            get => this.selectedFlightTwo;
+            set
+            {
+                this.selectedFlightTwo = value;
+                OnPropertyChanged(nameof(SelectedFlightTwo));
+            }
+        }
+
+        public int FlightType
+        {
+            get => this.flightType;
+            set
+            {
+                this.flightType = value;
                 if ( value == 1 )
                 {
                     PickerState = false;
+                    IsRoundTrip = false;
                 }
                 else
                 {
                     PickerState = true;
+                    IsRoundTrip = true;
                 }
-                OnPropertyChanged(nameof(SelectedFlight));
+                OnPropertyChanged(nameof(FlightType));
             }
         }
 
@@ -55,6 +118,28 @@ namespace SKAirlines_Project.ViewModels
                 OnPropertyChanged(nameof(ImagePics));
             }
         }
+
+        public DateTime OneWay
+        {
+            get => this.oneWay;
+            set
+            {
+                this.oneWay = value;
+                OnPropertyChanged(nameof(OneWay));
+            }
+        }
+
+        public DateTime TwoWay
+        {
+            get => this.twoWay;
+            set
+            {
+                this.twoWay = value;
+                OnPropertyChanged(nameof(TwoWay));
+            }
+        }
+
+
 
         public void AddData()
         {
@@ -72,5 +157,74 @@ namespace SKAirlines_Project.ViewModels
             };
         }
 
+
+        private async void SearchFlight()
+        {
+            string findDest, theOrig;
+            ObservableCollection<Flight> availableFlights = await checkFlights.GetFlights();
+            int j = 0;
+            if ( IsRoundTrip == true && SelectedFlightOne == 0 && SelectedFlightTwo == 0 )
+            {
+                await Shell.Current.DisplayAlert("No search data", "Fill-up the form", "Close");
+                return;
+            }
+            else if ( IsRoundTrip == false && SelectedFlightOne == 0 )
+            {
+                await Shell.Current.DisplayAlert("No search data", "Fill-up the form", "Close");
+                return;
+            }
+
+            findDest = GetPlace(SelectedFlightTwo);
+            theOrig = GetPlace(SelectedFlightOne);
+            foreach (var f in availableFlights)
+            {
+                if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day && IsRoundTrip == false)
+                {
+                    TheDataPassed = new DataPasser(f.OriginPlace, f.DestinationPlace, f.FlightDate, DateTime.Now, IsRoundTrip);
+                    await Shell.Current.GoToAsync($"{nameof(BookingPage)}?TheDataPassed=TheDataPassed");
+                    j++;
+                }
+                else if  ( IsRoundTrip == true ) 
+                {
+                    if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day )
+                    {
+
+                    }
+
+                    if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day)
+                    {
+
+                    }
+                }
+            }
+            if (j == 0)
+            {
+                await Shell.Current.DisplayAlert("Flight Not Found", "No Flights Avaialble", "Confirm");
+            }
+
+        }
+
+        private string GetPlace(int indexed)
+        {
+            int i = 0;
+
+            foreach (string s in Places)
+            {
+                if (i == indexed)
+                {
+                    return s;
+                }
+                ++i;
+            }
+            return "";
+        }
+
+        public List<string> ReturnPlaces() => new List<string>()
+        {
+        "SELECT","Bacolod", "Bohol", "Boracay (Caticlan)", "Butuan", "Cagayan de Oro", "Calbayog", "Camiguin", "Cebu", "Clark",
+        "Coron (Busuanga)", "Cotabato", "Davao", "Dipolog", "Dumaguete", "Iloilo", "Kalibo", "Laoag", "Legazpi (Daraga)",
+        "Manila", "Masbate", "Naga", "Ozamiz", "Pagadian", "Puerto Princesa", "Roxas", "San Jose (Mindoro)", "Siargao",
+        "Surigao", "Tacloban", "Tawi-Tawi", "Tuguegarao", "Virac", "Zamboanga" }
+        ;
     }
 }

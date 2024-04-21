@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SKAirlines_Project.ViewModels
 {
@@ -23,6 +24,8 @@ namespace SKAirlines_Project.ViewModels
   
         }
 
+        public ICommand LoginCommand => new Command(AccountVerification);
+        public ICommand TapCommand => new Command(NavigateToRegisterPage);
         private async void AccountVerification()
         {
             UserService userServicer = new UserService("users.json");
@@ -41,7 +44,7 @@ namespace SKAirlines_Project.ViewModels
                     if (userData.UserID == Username && userData.Password == Password)
                     {
                         detect = 1;
-                        await Shell.Current.GoToAsync(nameof(HomePage));
+                        await Shell.Current.GoToAsync($"{nameof(HomePage)}?TheUser=userData");
                     }
                 }
                 if (detect == 0)
@@ -49,6 +52,11 @@ namespace SKAirlines_Project.ViewModels
                     await Shell.Current.DisplayAlert("Failed", "Wrong Credentials", "Confirm");
                 }
             }
+        }
+
+        private async void NavigateToRegisterPage()
+        {
+            await Shell.Current.GoToAsync(nameof(RegisterPage));
         }
     }
 }

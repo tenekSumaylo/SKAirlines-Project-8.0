@@ -16,42 +16,7 @@ namespace SKAirlines_Project
         {
             InitializeComponent();
             viewModel = new MainPageViewModel();
-            BindingContext = this;
+            BindingContext = viewModel;
         }
-
-        private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-        {
-            await Navigation.PushAsync( new RegisterPage( new RegisterViewModel("users.json")));
-        }
-
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            UserService userServicer = new UserService("users.json");
-            int detect = 0;
-
-            ObservableCollection<UserDomain> theUsers = await userServicer.GetUsers();
-
-            if (Username == "admin" && Password == "123")
-            {
-                await Navigation.PushAsync(new AdminPage());
-            }
-            else
-            {
-                foreach (var userData in theUsers)
-                {
-                    if (userData.UserID == Username && userData.Password == Password)
-                    {
-                        detect = 1;
-                        await Navigation.PushAsync(new HomePage(new HomePageViewModel()));
-                    }
-                }
-                if (detect == 0)
-                {
-                    await DisplayAlert("Failed", "Wrong Credentials", "Confirm");
-                }
-            }
-        }
-
     }
 }

@@ -5,10 +5,10 @@ namespace SKAirlines_Project.Views;
 public partial class RegisterPage : ContentPage
 {
 	private RegisterViewModel viewModel;
-	public RegisterPage( RegisterViewModel vm )
+	public RegisterPage()
 	{
 		InitializeComponent();
-		viewModel = vm;
+		viewModel = new RegisterViewModel("users.json");
 		BindingContext = viewModel;
 	}
 }

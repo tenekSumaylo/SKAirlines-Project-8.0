@@ -7,7 +7,8 @@
              xmlns:viewmodel="clr-namespace:SKAirlines_Project.ViewModels"
              x:DataType="viewmodel:HomePageViewModel"
              xmlns:model="clr-namespace:SKAirlines_Project.Models"
-             xmlns:set="clr-namespace:SKAirlines_Project">
+             xmlns:set="clr-namespace:SKAirlines_Project"
+             Shell.NavBarIsVisible="False">
     <ScrollView>
         <VerticalStackLayout>
             <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
@@ -26,25 +27,25 @@
                             <HorizontalStackLayout Grid.Row="0" WidthRequest="200" HorizontalOptions="Start" Spacing="10">
                                 <Image Source="flightlogointro.png" VerticalOptions="Start"/>
                                 <Label Text="|" FontAttributes="Bold" VerticalOptions="Center"/>
-                                <Picker TextColor="#333333" ItemsSource="{Binding TypeOfFlight}" SelectedIndex="{Binding SelectedFlight}" VerticalTextAlignment="End" HeightRequest="40" />
+                                <Picker TextColor="#333333" ItemsSource="{Binding TypeOfFlight}" SelectedIndex="{Binding FlightType}" VerticalTextAlignment="End" HeightRequest="40" />
                             </HorizontalStackLayout>
                             <VerticalStackLayout Grid.Row="1" WidthRequest="200">
                                 <Label Text="From"/>
-                                <Picker x:Name="FromPlace"/>
+                                <Picker x:Name="FromPlace" SelectedIndex="{Binding SelectedFlightOne}" ItemsSource="{Binding Places}"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="2" WidthRequest="200">
                                 <Label Text="To"/>
-                                <Picker x:Name="ToPlace"/>
+                                <Picker x:Name="ToPlace" SelectedIndex="{Binding SelectedFlightTwo}" ItemsSource="{Binding Places}"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="3" WidthRequest="200">
                                 <Label Text="Departure"/>
-                                <DatePicker x:Name="OneWayTo"/>
+                                <DatePicker Date="{Binding OneWay}"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="4" WidthRequest="200">
                                 <Label Text="Return"/>
-                                <DatePicker IsEnabled="{Binding PickerState}"/>
+                                <DatePicker IsEnabled="{Binding PickerState}" Date="{Binding TwoWay}"/>
                             </VerticalStackLayout>
-                            <Button Grid.Row="5" WidthRequest="150" Text="Search Flight" HeightRequest="40" BackgroundColor="#19B0EC" Clicked="Button_Clicked"/>
+                            <Button Grid.Row="5" WidthRequest="150" Text="Search Flight" HeightRequest="40" BackgroundColor="#19B0EC" Command="{Binding SearchCommand}"/>
                         </Grid>
                         <Frame Grid.Row="2">
                             <VerticalStackLayout>

@@ -11,6 +11,7 @@ namespace SKAirlines_Project
             Routing.RegisterRoute( "RegisterPage", typeof(RegisterPage) );
             Routing.RegisterRoute( "BookingPage", typeof( BookingPage ) );
             Routing.RegisterRoute( "HomePage", typeof( HomePage ) );
+            Routing.RegisterRoute("AdminPage", typeof(AdminPage));
         }
     }
 }

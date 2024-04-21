@@ -4,7 +4,8 @@
              x:Class="SKAirlines_Project.Views.RegisterPage"
              Title="Register Page"
              xmlns:viewModels="clr-namespace:SKAirlines_Project.ViewModels"
-             x:DataType="viewModels:RegisterViewModel">
+             x:DataType="viewModels:RegisterViewModel"
+             Shell.NavBarIsVisible="False">
     <Grid>
         <Image Source="registerpage.png" Aspect="AspectFill"/>
         <VerticalStackLayout Margin="0,10,0,0">
@@ -42,9 +43,10 @@
                         <Label Text="Confirm Password" FontAttributes="Bold" />
                         <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding confirmPassword}" IsPassword="True"/>
                     </VerticalStackLayout>
-                    <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+                    <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10">
                         <Button WidthRequest="94" HeightRequest="40" Text="Create" BackgroundColor="#19B0EC" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Command="{Binding RegisterCommand}"/>
-                    </VerticalStackLayout>
+                        <Button WidthRequest="94" HeightRequest="40" Text="Back" BackgroundColor="#19B0EC" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Command="{Binding ReturnCommand}"/>
+                    </HorizontalStackLayout>
                 </FlexLayout>
             </Frame>
         </VerticalStackLayout>
