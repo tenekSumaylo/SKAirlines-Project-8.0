@@ -42,7 +42,7 @@ namespace SKAirlines_Project.ViewModels
             }
             else
             {
-                
+                await Shell.Current.DisplayAlert("Cannot Proceed", "Fill-out all forms", "Close");
             }
         }
 

@@ -10,7 +10,7 @@ namespace SKAirlines_Project
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage( new MainPage() );
+            MainPage = new AppShell();
 
             
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>

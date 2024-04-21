@@ -43,7 +43,7 @@
                         <Entry WidthRequest="200" BackgroundColor="LightGray" Text="{Binding confirmPassword}" IsPassword="True"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
-                        <Button WidthRequest="94" HeightRequest="40" Text="Create" BackgroundColor="#19B0EC" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Clicked="Button_Clicked"/>
+                        <Button WidthRequest="94" HeightRequest="40" Text="Create" BackgroundColor="#19B0EC" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Command="{Binding RegisterCommand}"/>
                     </VerticalStackLayout>
                 </FlexLayout>
             </Frame>
