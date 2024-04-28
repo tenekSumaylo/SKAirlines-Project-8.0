@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace SKAirlines_Project.ViewModels
 {
-    [QueryProperty(nameof(TheUser), nameof(TheUser))]
+    [QueryProperty(nameof(TheUser), "TheUser")]
     public class HomePageViewModel : BaseViewModel
     {
         AdminService checkFlights = new AdminService("Flights.json");

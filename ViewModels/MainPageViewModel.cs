@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -44,7 +45,11 @@ namespace SKAirlines_Project.ViewModels
                     if (userData.UserID == Username && userData.Password == Password)
                     {
                         detect = 1;
-                        await Shell.Current.GoToAsync($"{nameof(HomePage)}?TheUser=userData");
+                        var theDictionary = new Dictionary<string, object>
+                        {
+                            { "TheUser", userData },
+                        };
+                        await Shell.Current.GoToAsync($"{nameof(HomePage)}", theDictionary);
                     }
                 }
                 if (detect == 0)
