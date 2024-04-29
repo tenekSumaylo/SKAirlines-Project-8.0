@@ -47,7 +47,7 @@ namespace SKAirlines_Project.ViewModels
                         detect = 1;
                         var theDictionary = new Dictionary<string, object>
                         {
-                            { "TheUser", userData },
+                            { "TheUser", userData }
                         };
                         await Shell.Current.GoToAsync($"{nameof(HomePage)}", theDictionary);
                     }

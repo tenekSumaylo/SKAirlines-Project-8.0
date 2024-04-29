@@ -25,6 +25,7 @@ namespace SKAirlines_Project.ViewModels
         private DateTime oneWay;
         private DateTime twoWay;
         private bool isRoundTrip;
+        private string otin;
         public List<string> Places { get; set; }
 
         public DataPasser TheDataPassed { get; set; }
@@ -39,12 +40,23 @@ namespace SKAirlines_Project.ViewModels
             TwoWay = DateTime.Now;
         }
 
+        public string Otin
+        {
+            get => this.otin;
+            set
+            {
+                this.otin = value;
+                OnPropertyChanged(nameof(Otin));
+            }
+        }
+
         public UserDomain TheUser
         {
             get => this.theUser;
             set
             {
                 this.theUser = value;
+                Otin = TheUser.UserID;
                 OnPropertyChanged(nameof(TheUser));
             }
         }
@@ -163,25 +175,25 @@ namespace SKAirlines_Project.ViewModels
             string findDest, theOrig;
             ObservableCollection<Flight> availableFlights = await checkFlights.GetFlights();
             int j = 0;
-            if ( IsRoundTrip == true && SelectedFlightOne == 0 && SelectedFlightTwo == 0 )
-            {
-                await Shell.Current.DisplayAlert("No search data", "Fill-up the form", "Close");
-                return;
-            }
-            else if ( IsRoundTrip == false && SelectedFlightOne == 0 )
-            {
-                await Shell.Current.DisplayAlert("No search data", "Fill-up the form", "Close");
-                return;
-            }
 
+            if ( FlightType == 0 )
+            {
+                await Shell.Current.DisplayAlert("Choose Flight Type", "Cannot Proceed", "Close");
+                return;
+            }
             findDest = GetPlace(SelectedFlightTwo);
             theOrig = GetPlace(SelectedFlightOne);
             foreach (var f in availableFlights)
             {
                 if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day && IsRoundTrip == false)
                 {
-                    TheDataPassed = new DataPasser(f.OriginPlace, f.DestinationPlace, f.FlightDate, DateTime.Now, IsRoundTrip);
-                    await Shell.Current.GoToAsync($"{nameof(BookingPage)}?TheDataPassed=TheDataPassed");
+                    TheDataPassed = new DataPasser(TheUser,f.OriginPlace, f.DestinationPlace, f.FlightDate, DateTime.Now, IsRoundTrip);
+                    var theDictionary = new Dictionary<string, object>
+                    {
+                        {"TheDataPassed", TheDataPassed }
+                    };
+                    await Shell.Current.GoToAsync(nameof(BookingPage));
+                  //  await Shell.Current.GoToAsync($"{nameof(BookingPage)}", theDictionary);
                     j++;
                 }
                 else if  ( IsRoundTrip == true ) 
@@ -221,10 +233,9 @@ namespace SKAirlines_Project.ViewModels
 
         public List<string> ReturnPlaces() => new List<string>()
         {
-        "SELECT","Bacolod", "Bohol", "Boracay (Caticlan)", "Butuan", "Cagayan de Oro", "Calbayog", "Camiguin", "Cebu", "Clark",
+        "Bacolod", "Bohol", "Boracay (Caticlan)", "Butuan", "Cagayan de Oro", "Calbayog", "Camiguin", "Cebu", "Clark",
         "Coron (Busuanga)", "Cotabato", "Davao", "Dipolog", "Dumaguete", "Iloilo", "Kalibo", "Laoag", "Legazpi (Daraga)",
         "Manila", "Masbate", "Naga", "Ozamiz", "Pagadian", "Puerto Princesa", "Roxas", "San Jose (Mindoro)", "Siargao",
-        "Surigao", "Tacloban", "Tawi-Tawi", "Tuguegarao", "Virac", "Zamboanga" }
-        ;
+        "Surigao", "Tacloban", "Tawi-Tawi", "Tuguegarao", "Virac", "Zamboanga" };
     }
 }

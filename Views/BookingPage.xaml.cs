@@ -1,27 +1,30 @@
 using SKAirlines_Project.Models;
 using SKAirlines_Project.Services;
+using SKAirlines_Project.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace SKAirlines_Project.Views;
 
 public partial class BookingPage : ContentPage
 {
-    public ObservableCollection<Flight> FlightsAvailable {  get; set; }
+ /*   public ObservableCollection<Flight> FlightsAvailable {  get; set; }
     public Flight DummyFlight1;
     public Flight DummyFlight2;
     public Passenger person1;
     public Passenger person2;
     public ObservableCollection<Passenger> GuestsInput {  get; set; }
     private AdminService adService = new AdminService("Flights.json");
-    public int NumPassengers {  get; set; }
-    public BookingPage( string destination, string origin, DateTime flightDate )
+    public int NumPassengers {  get; set; } */
+
+    public BookingPageViewModel viewModel;
+    public BookingPage()
 	{
 		InitializeComponent();
-		BindingContext = this;
-        BookFlightPage.IsVisible = false;
+        viewModel = new BookingPageViewModel();
+        BindingContext = viewModel;
+/*        BookFlightPage.IsVisible = false;
         FlightsAvailable = new ObservableCollection<Flight>();
-        FindFlight( destination, origin, flightDate );
-        flightsAvail.ItemsSource = FlightsAvailable;
+        //kFindFlight( destination, origin, flightDate );
         GuestsInput = new ObservableCollection<Passenger>();
 
         person1 = new Passenger("Kevin", "Durant", "hehe@gmail.com", DateTime.Now, 1);
@@ -32,9 +35,9 @@ public partial class BookingPage : ContentPage
         Guests.ItemsSource = GuestsInput;
         AddOns.IsVisible = false;
         seatSelection.IsVisible = false;
-        NumPassengers = 0;
+        NumPassengers = 0; */
     }
-
+ /*
     public async void FindFlight( string destination, string origin, DateTime flightDate)
     {
         ObservableCollection<Flight> GetAllFlights = await adService.GetFlights();
@@ -63,7 +66,7 @@ public partial class BookingPage : ContentPage
         BookFlightPage.IsVisible = true;
     }
 
-    /*    private void ChangeColor( int n )
+        private void ChangeColor( int n )
         {
             Color[] MenuColors = new Color[5];
 
@@ -83,7 +86,7 @@ public partial class BookingPage : ContentPage
             label3.BackgroundColor = MenuColors[2];
             label4.BackgroundColor = MenuColors[3];
             label5.BackgroundColor = MenuColors[4];
-        } */
+        } 
 
     private void Button_Clicked_2(object sender, EventArgs e)
     {
@@ -174,5 +177,5 @@ public partial class BookingPage : ContentPage
             ChainPerson.Title += "-" + i;
             GuestsInput.Add( ChainPerson );
         }
-    }
+    } */
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SKAirlines_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace SKAirlines_Project.ServiceModel
 {
     public class DataPasser
     {
+        public UserDomain TheUser { get; set; }
         public string Origin { get; set; }
         public string Destination { get; set; }
         public string ReturnOrigin { get; set; }
@@ -16,8 +18,9 @@ namespace SKAirlines_Project.ServiceModel
         public DateTime TwoWay { get; set;}
         public bool IsRoundTrip {  get; set;}
         public DataPasser() { }
-        public DataPasser( string origin, string destination, DateTime oneway, DateTime twoway, bool roundtrip )
+        public DataPasser( UserDomain theUser,string origin, string destination, DateTime oneway, DateTime twoway, bool roundtrip )
         {
+            TheUser = theUser;
             Origin = origin;
             Destination = destination;
             OneWay = oneway;
@@ -25,8 +28,9 @@ namespace SKAirlines_Project.ServiceModel
             IsRoundTrip = roundtrip;
         }
 
-        public DataPasser(string origin, string destination, DateTime oneway, DateTime twoway, bool roundtrip, string returnDestination, string returnOrigin)
+        public DataPasser( UserDomain theUser,string origin, string destination, DateTime oneway, DateTime twoway, bool roundtrip, string returnDestination, string returnOrigin)
         {
+            TheUser = theUser;
             Origin = origin;
             Destination = destination;
             OneWay = oneway;

@@ -31,11 +31,11 @@
                             </HorizontalStackLayout>
                             <VerticalStackLayout Grid.Row="1" WidthRequest="200">
                                 <Label Text="From"/>
-                                <Picker x:Name="FromPlace" SelectedIndex="{Binding SelectedFlightOne}" ItemsSource="{Binding Places}"/>
+                                <Picker x:Name="FromPlace" SelectedIndex="{Binding SelectedFlightOne}" ItemsSource="{Binding Places}" Title="Choose your origin"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="2" WidthRequest="200">
                                 <Label Text="To"/>
-                                <Picker x:Name="ToPlace" SelectedIndex="{Binding SelectedFlightTwo}" ItemsSource="{Binding Places}"/>
+                                <Picker x:Name="ToPlace" SelectedIndex="{Binding SelectedFlightTwo}" ItemsSource="{Binding Places}" Title="Choose your destination"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="3" WidthRequest="200">
                                 <Label Text="Departure"/>
@@ -49,6 +49,7 @@
                         </Grid>
                         <Frame Grid.Row="2">
                             <VerticalStackLayout>
+                                <Label Text="{Binding Otin}" FontSize="100"/>
                                 <Label Text="Why Everyone" FontSize="30"/>
                                 <Label Text="Flies" FontSize="30"/>
                                 <Image Source="mainpagepicture.png"/>
