@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SKAirlines_Project.ViewModels
 {
@@ -24,6 +25,12 @@ namespace SKAirlines_Project.ViewModels
         private int infant;
         private bool infantChecker;
 
+        // commands
+
+        public ICommand ButtonOne => new Command(ButtonOneClicked);
+        public ICommand ButtonOneBack => new Command(ButtonOneBackClicked);
+
+
         private bool guestSet;  // page for setting the number of passengers
         private bool chooseFlight; // page for choosing the flight
         private bool detailsForm; // page for inputting the details
@@ -34,6 +41,19 @@ namespace SKAirlines_Project.ViewModels
             PassengerAddPage = true;
         }
 
+
+        public async void ButtonOneClicked() {
+            if (!(Adult == 0 && Children == 0 && Infant == 0))
+            {
+                ChooseFlightPage = true;
+                return;
+            }
+            await Shell.Current.DisplayAlert("No passenger", "Input atleast one passenger", "Confirm");
+        }
+
+        public async void ButtonOneBackClicked()
+        {
+        }
         public bool GuestSet
         {
             get => this.guestSet;
@@ -135,7 +155,7 @@ namespace SKAirlines_Project.ViewModels
             get => this.infant;
             set
             {
-                this.adult = value;
+                this.infant = value;
                 OnPropertyChanged(nameof(Infant));
             }
         }

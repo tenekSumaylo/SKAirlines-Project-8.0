@@ -58,7 +58,6 @@ namespace SKAirlines_Project.ViewModels
                 }
             }
         }
-
         private async void NavigateToRegisterPage()
         {
             await Shell.Current.GoToAsync(nameof(RegisterPage));

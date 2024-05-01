@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SKAirlines_Project.Views.HomePage"
              Title=""
-             NavigationPage.HasNavigationBar="False"
              xmlns:viewmodel="clr-namespace:SKAirlines_Project.ViewModels"
              x:DataType="viewmodel:HomePageViewModel"
              xmlns:model="clr-namespace:SKAirlines_Project.Models"
              xmlns:set="clr-namespace:SKAirlines_Project"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="Red">
     <ScrollView>
         <VerticalStackLayout>
             <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>

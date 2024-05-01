@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SKAirlines_Project.Views.BookingPage"
              Title="BookingPage"
-             NavigationPage.HasNavigationBar="False"
              xmlns:model="clr-namespace:SKAirlines_Project.Models"
              xmlns:viewModel="clr-namespace:SKAirlines_Project.ViewModels"
              x:DataType="viewModel:BookingPageViewModel"
@@ -62,8 +61,8 @@
                     <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperS" Value="{Binding Infant}" IsEnabled="{Binding InfantChecker}"/>
                 </VerticalStackLayout>
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                    <Button HorizontalOptions="Center"  Text="Back"  WidthRequest="100" BackgroundColor="#19B0EC"/>
-                    <Button HorizontalOptions="Center"  Text="Next"  WidthRequest="100" BackgroundColor="#19B0EC"/>
+                    <Button HorizontalOptions="Center"  Text="Back"  WidthRequest="100" BackgroundColor="#19B0EC" Command="{Binding ButtonOneBack}"/>
+                    <Button HorizontalOptions="Center"  Text="Next"  WidthRequest="100" BackgroundColor="#19B0EC" Command="{Binding ButtonOne}"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
