@@ -24,11 +24,64 @@ namespace SKAirlines_Project.ViewModels
         private int infant;
         private bool infantChecker;
 
+        private bool guestSet;  // page for setting the number of passengers
+        private bool chooseFlight; // page for choosing the flight
+        private bool detailsForm; // page for inputting the details
+        private bool addOnsSection; // page for selection of add ons
+        private bool seatSelection;  // page for seat selection
+
         public BookingPageViewModel() {
-            Adult = 0;
-            Children = 0;
-            Infant = 0;
+            PassengerAddPage = true;
         }
+
+        public bool GuestSet
+        {
+            get => this.guestSet;
+            set
+            {
+                this.guestSet = value;
+                OnPropertyChanged(nameof(GuestSet));
+            }
+        }
+
+        public bool ChooseFlight
+        {
+            get => this.chooseFlight;
+            set
+            {
+                this.chooseFlight = value;
+                OnPropertyChanged(nameof(ChooseFlight));
+            }
+        } 
+        public bool DetailsForm
+        {
+            get => this.detailsForm;
+            set
+            {
+                this.detailsForm = value;
+                OnPropertyChanged(nameof(DetailsForm)); 
+            }
+        }
+        public bool AddOnsSection
+        {
+            get => this.addOnsSection;
+            set
+            {
+                this.addOnsSection = value;
+                OnPropertyChanged(nameof(AddOnsSection));
+            }
+        } // page for selection of add ons
+        public bool SeatSelection
+        {
+            get => this.seatSelection;
+            set
+            {
+                this.seatSelection = value;
+                OnPropertyChanged(nameof(SeatSelection));
+            }
+        }  // page for seat selection
+
+
 
         public ObservableCollection<Flight> FlightsAvailable
         {
@@ -57,6 +110,10 @@ namespace SKAirlines_Project.ViewModels
                 if ( value == 0 )
                 {
                     InfantChecker = false;
+                }
+                else
+                {
+                    InfantChecker = true;
                 }
                 this.adult = value;
                 OnPropertyChanged( nameof(Adult));

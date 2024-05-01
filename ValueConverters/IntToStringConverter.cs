@@ -15,7 +15,7 @@ namespace SKAirlines_Project.ValueConverters
             {
                 return value.ToString();
             }
-            return "opaw";
+            return "";
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

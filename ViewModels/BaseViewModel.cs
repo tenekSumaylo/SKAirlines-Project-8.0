@@ -19,11 +19,24 @@ namespace SKAirlines_Project.ViewModels
         private bool addOnsPage;
         private bool seatSelectionPage;
 
+        public void PageConverter()
+        {
+            PassengerAddPage = false;
+            ChooseFlightPage = false;
+            DetailsPage = false;
+            AddOnsPage = false;
+            SeatSelectionPage = false;
+        }
+
         public bool PassengerAddPage
         {
             get => this.passengerAddPage;
             set
             {
+                if ( value == true )
+                {
+                    PageConverter();
+                }
                 passengerAddPage = value;
                 OnPropertyChanged(nameof(PassengerAddPage));
             }
@@ -34,6 +47,10 @@ namespace SKAirlines_Project.ViewModels
             get => this.chooseFlightPage;
             set
             {
+                if (value == true)
+                {
+                    PageConverter();
+                }
                 this.chooseFlightPage = value;
                 OnPropertyChanged(nameof(ChooseFlightPage));
             }
@@ -44,6 +61,10 @@ namespace SKAirlines_Project.ViewModels
             get => this.detailsPage;
             set
             {
+                if (value == true)
+                {
+                    PageConverter();
+                }
                 this.detailsPage = value;
                 OnPropertyChanged(nameof(DetailsPage));
             }
@@ -54,6 +75,10 @@ namespace SKAirlines_Project.ViewModels
             get => this.addOnsPage;
             set
             {
+                if (value == true)
+                {
+                    PageConverter();
+                }
                 this.addOnsPage = value;
                 OnPropertyChanged(nameof(AddOnsPage));
             }
@@ -64,6 +89,10 @@ namespace SKAirlines_Project.ViewModels
             get => this.seatSelectionPage;
             set
             {
+                if (value == true)
+                {
+                    PageConverter();
+                }
                 this.seatSelectionPage = value;
                 OnPropertyChanged(nameof(SeatSelectionPage));
             }

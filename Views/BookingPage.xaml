@@ -38,26 +38,26 @@
             </VerticalStackLayout>
 
             <!--#region -->
-            <VerticalStackLayout Spacing="20" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" x:Name="GuestAppend" Margin="0,25,0,0">
+            <VerticalStackLayout Spacing="20" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" x:Name="GuestAppend" Margin="0,25,0,0" IsVisible="{Binding PassengerAddPage}">
                 <Label Text="Hi, where would you like to go?" FontSize="22" HorizontalOptions="Start"/>
                 <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
                     <Label Text="Adult" FontSize="18"/>
                     <Frame HeightRequest="50" HorizontalOptions="Start">
-                        <Entry HeightRequest="50" WidthRequest="150" IsReadOnly="True" Text="{Binding Adult, Converter={StaticResource IntToString}}"/>
+                        <Label HeightRequest="50" WidthRequest="150" Text="{Binding Adult, Converter={StaticResource IntToString}}"/>
                     </Frame>
                     <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperK" Value="{Binding Adult}"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
                     <Label Text="Children" FontSize="18"/>
                     <Frame HeightRequest="50" HorizontalOptions="Start">
-                        <Entry HeightRequest="50" WidthRequest="150" IsReadOnly="True" Text="{Binding Children, Converter={StaticResource IntToString}}"/>
+                        <Label HeightRequest="50" WidthRequest="150" Text="{Binding Children, Converter={StaticResource IntToString}}"/>
                     </Frame>
                     <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperA" Value="{Binding Children}"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
                     <Label Text="Infant" FontSize="18"/>
                     <Frame HeightRequest="50" HorizontalOptions="Start">
-                        <Entry HeightRequest="50" WidthRequest="150" IsReadOnly="True" Text="{Binding Infant, Converter={StaticResource IntToString}}"/>
+                        <Label HeightRequest="50" WidthRequest="150" Text="{Binding Infant, Converter={StaticResource IntToString}}"/>
                     </Frame>
                     <Stepper Minimum="0" Maximum="20" HorizontalOptions="Center" Increment="1" x:Name="stepperS" Value="{Binding Infant}" IsEnabled="{Binding InfantChecker}"/>
                 </VerticalStackLayout>
@@ -68,7 +68,7 @@
             </VerticalStackLayout>
 
             <!--#region -->
-            <VerticalStackLayout Grid.Row="1" x:Name="BookFlightPage" HorizontalOptions="Center" VerticalOptions="Start">
+            <VerticalStackLayout Grid.Row="1" x:Name="BookFlightPage" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding ChooseFlightPage}">
                 <HorizontalStackLayout HeightRequest="65">
                     <Frame WidthRequest="100">
                         <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center">
@@ -134,7 +134,7 @@
             </VerticalStackLayout>
             <!--#region -->
 
-            <VerticalStackLayout Grid.Row="1" x:Name="inputG" >
+            <VerticalStackLayout Grid.Row="1" x:Name="inputG" IsVisible="{Binding DetailsPage}">
                 <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0" SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Passenger">
@@ -175,7 +175,7 @@
             </VerticalStackLayout>
             
             <!--#region -->
-            <VerticalStackLayout Grid.Row="1" x:Name="AddOns" Padding="0,10,0,0">
+            <VerticalStackLayout Grid.Row="1" x:Name="AddOns" Padding="0,10,0,0" IsVisible="{Binding AddOnsPage}">
                 <VerticalStackLayout Padding="10,0,0,0">
                     <Label Text="Customize your flight with" FontAttributes="Bold" FontSize="25"/>
                     <Label Text="our add-ons!" FontAttributes="Bold" FontSize="25"/>
@@ -187,7 +187,7 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
       <!--#region -->
-            <Grid Grid.Row="1" x:Name="seatSelection">
+            <Grid Grid.Row="1" x:Name="seatSelection" IsVisible="{Binding SeatSelectionPage}">
                 <Image Source="seatselectorbg.png"/>
                 <VerticalStackLayout>
                     <VerticalStackLayout Padding="25,25,0,0">

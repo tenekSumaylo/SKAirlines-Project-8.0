@@ -38,6 +38,7 @@ namespace SKAirlines_Project.ViewModels
             Places = ReturnPlaces();
             OneWay = DateTime.Now;
             TwoWay = DateTime.Now;
+
         }
 
         public string Otin
@@ -56,7 +57,7 @@ namespace SKAirlines_Project.ViewModels
             set
             {
                 this.theUser = value;
-                Otin = TheUser.UserID;
+                Otin = nameof(TheUser.UserID);
                 OnPropertyChanged(nameof(TheUser));
             }
         }
