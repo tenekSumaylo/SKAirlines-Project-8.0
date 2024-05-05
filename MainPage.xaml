@@ -4,9 +4,11 @@
              x:Class="SKAirlines_Project.MainPage"
              xmlns:customControl ="clr-namespace:SKAirlines_Project.CustomControl"
              x:Name="mainPage"
-             Shell.NavBarIsVisible="False"
+             Title="Oten IO"
              xmlns:viewModels="clr-namespace:SKAirlines_Project.ViewModels"
-             x:DataType="viewModels:MainPageViewModel">
+             x:DataType="viewModels:MainPageViewModel"
+             Shell.NavBarIsVisible="False"
+             >
     <Grid>
         <Image Source="landingpage.png" Aspect="AspectFill"/>
         <VerticalStackLayout Margin="0,90,0,0">

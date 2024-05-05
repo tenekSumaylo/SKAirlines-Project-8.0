@@ -9,19 +9,13 @@ namespace SKAirlines_Project
         public App()
         {
             InitializeComponent();
-
             MainPage = new AppShell();
+        }
 
-            
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
-            {
-#if __ANDROID__
-                handler.PlatformView.SetBackgroundColor( Android.Graphics.Color.Transparent );
-        
-#elif __IOS__
-                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-#endif
-            });
+        protected override async void OnStart()
+        {
+            await Shell.Current.GoToAsync("//MainPage");
+            base.OnStart();
         }
     }
 }
