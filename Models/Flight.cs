@@ -11,7 +11,7 @@ namespace SKAirlines_Project.Models
     {
         private string planeName = string.Empty;
         private DateTime flightDate;
-        private DateTime flightTime;
+        private TimeSpan flightTime;
         private int numberOfSeats;
         private bool isDeleted;
         private bool isDeparted;
@@ -19,10 +19,10 @@ namespace SKAirlines_Project.Models
         private string destinationPlace = string.Empty;
         private string flightID = string.Empty;
         private double fare;
-        private ObservableCollection<Seat> theSeats;
+        private ObservableCollection<Seat> theSeats = new ObservableCollection<Seat>();
 
         public Flight() { }
-        public Flight(string planeName, DateTime flightDate, DateTime flightTime, int numberOfSeats, bool isDeleted, bool isDeparted, string originPlace, string destinationPlace, string flightID)
+        public Flight(string planeName, DateTime flightDate, TimeSpan flightTime, int numberOfSeats, bool isDeleted, bool isDeparted, string originPlace, string destinationPlace, string flightID)
         {
             PlaneName = planeName;
             FlightDate = flightDate;
@@ -75,7 +75,7 @@ namespace SKAirlines_Project.Models
             }
         }
 
-        public DateTime FlightTime
+        public TimeSpan FlightTime
         {
             get => this.flightTime;
             set
@@ -148,7 +148,7 @@ namespace SKAirlines_Project.Models
         {
             PlaneName = string.Empty;
             FlightDate = DateTime.Now;
-            FlightTime = DateTime.Now;
+            FlightTime = TimeSpan.MinValue;
             NumberOfSeats = -1;
             IsDeleted = false;
             IsDeparted = false;

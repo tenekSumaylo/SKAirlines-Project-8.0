@@ -15,7 +15,7 @@ namespace SKAirlines_Project.Models
         public Seat() { }
         public Seat( string id, int number, bool occupy)
         {
-            SeatID = id;
+            SeatID = id + "-" + number;
             SeatNumber = number;
             IsOccupied = occupy;
         }

@@ -104,9 +104,9 @@
                                         <Grid ColumnDefinitions="80,100,90,30" HorizontalOptions="Start">
                                             <VerticalStackLayout Grid.Column="0" Spacing="5">
                                                 <HorizontalStackLayout>
-                                                    <Label Text="{Binding FlightTime.Hour}"/>
+                                                    <Label Text="{Binding FlightTime.Hours}"/>
                                                     <Label Text=":"/>
-                                                    <Label Text="{Binding FlightTime.Minute}"/>
+                                                    <Label Text="{Binding FlightTime.Minutes}"/>
                                                 </HorizontalStackLayout>
                                                 <Label Text="{Binding OriginPlace}"/>
                                             </VerticalStackLayout>

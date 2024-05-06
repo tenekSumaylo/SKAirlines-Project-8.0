@@ -18,13 +18,12 @@ namespace SKAirlines_Project.ServiceModel
         public DateTime TwoWay { get; set;}
         public bool IsRoundTrip {  get; set;}
         public DataPasser() { }
-        public DataPasser( UserDomain theUser,string origin, string destination, DateTime oneway, DateTime twoway, bool roundtrip )
+        public DataPasser( UserDomain theUser,string origin, string destination, DateTime oneway, bool roundtrip )
         {
             TheUser = theUser;
             Origin = origin;
             Destination = destination;
             OneWay = oneway;
-            TwoWay = twoway;
             IsRoundTrip = roundtrip;
         }
 

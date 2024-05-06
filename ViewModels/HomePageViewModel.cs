@@ -1,4 +1,5 @@
-﻿using SKAirlines_Project.Models;
+﻿using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using SKAirlines_Project.Models;
 using SKAirlines_Project.ServiceModel;
 using SKAirlines_Project.Services;
 using SKAirlines_Project.Views;
@@ -170,12 +171,18 @@ namespace SKAirlines_Project.ViewModels
             };
         }
 
+        private void initializeTheComponents()
+        {
+
+        }
+
 
         private async void SearchFlight()
         {
+            initializeTheComponents();
             string findDest, theOrig;
             ObservableCollection<Flight> availableFlights = await checkFlights.GetFlights();
-            int j = 0;
+            int j = 0, check = 0, i = 0;
 
             if ( FlightType == 0 )
             {
@@ -186,33 +193,58 @@ namespace SKAirlines_Project.ViewModels
             theOrig = GetPlace(SelectedFlightOne);
             foreach (var f in availableFlights)
             {
-                if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day && IsRoundTrip == false)
+                if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day )
                 {
-                    TheDataPassed = new DataPasser(TheUser,f.OriginPlace, f.DestinationPlace, f.FlightDate, DateTime.Now, IsRoundTrip);
-                    var theDictionary = new Dictionary<string, object>
+                    if ( isRoundTrip == true )
                     {
-                        {"TheDataPassed", TheDataPassed }
-                    };
-                    await Shell.Current.GoToAsync(nameof(BookingPage));
-                  //  await Shell.Current.GoToAsync($"{nameof(BookingPage)}", theDictionary);
-                    j++;
+                        foreach ( var k in availableFlights )
+                        {
+                            if (k.OriginPlace == findDest && k.DestinationPlace == theOrig && k.FlightDate.Month == TwoWay.Month && k.FlightDate.Year == TwoWay.Year && k.FlightDate.Day == TwoWay.Day)
+                            {
+                                TheDataPassed = new DataPasser(TheUser, f.OriginPlace, f.DestinationPlace, f.FlightDate, k.FlightDate, true, k.OriginPlace, k.DestinationPlace);
+                                ++i;
+                                break;
+                            }
+                        }
+
+                        if ( i == 0 )
+                        {
+                            j = 0;
+                        }
+                        else
+                        {
+                            j++;
+                            break;
+                        }
+                    }
+                    else if ( isRoundTrip == false ) { }
+                    {
+                        TheDataPassed = new DataPasser(TheUser, f.OriginPlace, f.DestinationPlace, f.FlightDate, IsRoundTrip);
+                        j++;
+                        break;
+                    }
                 }
                 else if  ( IsRoundTrip == true ) 
                 {
                     if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day )
                     {
-
-                    }
-
-                    if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day)
-                    {
-
+                        TheDataPassed = new DataPasser(TheUser, f.OriginPlace, f.DestinationPlace, f.FlightDate, IsRoundTrip);
                     }
                 }
             }
             if (j == 0)
             {
                 await Shell.Current.DisplayAlert("Flight Not Found", "No Flights Avaialble", "Confirm");
+            }
+            else
+            {
+                var theDictionary = new Dictionary<string, object>
+                {
+                        {"TheDataPassed", TheDataPassed }
+                };
+                //await Shell.Current.GoToAsync(nameof(BookingPage));
+                //await Shell.Current.GoToAsync("HomePage/BookingPage", theDictionary);
+                await Shell.Current.GoToAsync(nameof(BookingPage));
             }
 
         }

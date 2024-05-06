@@ -10,7 +10,7 @@ public partial class AdminPage : ContentPage
 	public string Orig { get; set; }
 	public string Dest { get; set; }
 	public string testSeat { get; set; }
-	public int seats { get; set; }
+	public int Seats { get; set; }
 	public DateTime flightTime;
 	AdminService adservice;
     public AdminPage()
@@ -23,6 +23,8 @@ public partial class AdminPage : ContentPage
 		theFlight = new Flight();
 		flightTime = DateTime.Now;
 		dateFlight.Date = DateTime.Now;
+		planetype.ItemsSource = planes;
+		TimeofFlight.Time = TimeSpan.MinValue;
 	}
 
 	List<string> originPlaces = new List<string>()
@@ -33,25 +35,32 @@ public partial class AdminPage : ContentPage
 		"Surigao", "Tacloban", "Tawi-Tawi", "Tuguegarao", "Virac", "Zamboanga"
 	};
 
+    List<string> planes = new List<string>() { 
+		"F-16","Airbus A220", "Boeing 767", "Comac-C919"
+    };
+
     private async void Button_Clicked(object sender, EventArgs e)
     {
-		theFlight.OriginPlace = GetPlace( origin.SelectedIndex);
-		theFlight.DestinationPlace = GetPlace( destination.SelectedIndex);
-		seats = Convert.ToInt32(numSeat.Text);
-		theFlight.NumberOfSeats = seats;
-		theFlight.FlightDate = dateFlight.Date;
-		//MakeSeats();
+		theFlight.PlaneName = GetPlane(planetype.SelectedIndex);  // planeName
+		theFlight.OriginPlace = GetPlace( origin.SelectedIndex);  // origin
+		theFlight.DestinationPlace = GetPlace( destination.SelectedIndex);  // destination
+		theFlight.Fare = Convert.ToDouble(fare.Text);  // fare
+		Seats = Convert.ToInt32(numSeat.Text); // seats
+		theFlight.NumberOfSeats = Seats;  // seats
+		theFlight.FlightDate = dateFlight.Date;  // date 
+		MakeSeats(); 
 		ObservableCollection<Flight> theFlights = await adservice.GetFlights();
 		theFlights.Add(theFlight);
 		adservice.SaveToFile(theFlights);
-		await Navigation.PopAsync();
+		await Shell.Current.Navigation.PopAsync();
     }
 
 	private void MakeSeats()
 	{
-		for ( int i = 1; i <= seats; i++ )
+		Seat checkSeat;
+		for ( int i = 1; i <= Seats; i++ )
 		{
-			Seat checkSeat = new Seat("ljweh1", i, false);
+			checkSeat = new Seat(Convert.ToString(theFlight.PlaneName[0]), i, false);
 			theFlight.TheSeats.Add(checkSeat);
 		}
 	}
@@ -61,6 +70,21 @@ public partial class AdminPage : ContentPage
         int i = 0;
 
         foreach (string s in originPlaces)
+        {
+            if (i == indexed)
+            {
+                return s;
+            }
+            ++i;
+        }
+        return "";
+    }
+
+    private string GetPlane(int indexed)
+    {
+        int i = 0;
+
+        foreach (string s in planes	)
         {
             if (i == indexed)
             {

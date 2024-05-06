@@ -12,7 +12,7 @@ namespace SKAirlines_Project.Models
         private string bookedFlightID;
         private Payment paymentSlip;
         private ObservableCollection<Ticket> tickets;
-        private Flight flightID;
+        private string flightID;
         
         public BookedFlight() { }
         public string BookedFlightID
@@ -45,7 +45,7 @@ namespace SKAirlines_Project.Models
             }
         }
 
-        public Flight FlightID
+        public string FlightID
         {
             get => this.flightID;
             set

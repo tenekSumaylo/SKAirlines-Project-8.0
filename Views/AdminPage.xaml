@@ -5,6 +5,10 @@
              Title="AdminPage">
     <VerticalStackLayout Padding="0,25,0,0" Spacing="18" HorizontalOptions="Center">
         <VerticalStackLayout Spacing="5">
+            <Label Text="Plane"/>
+            <Picker x:Name="planetype" BackgroundColor="Gray" WidthRequest="180" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Spacing="5">
             <Label Text="Origin"/>
             <Picker x:Name="origin" BackgroundColor="Gray" WidthRequest="180" />
         </VerticalStackLayout>
@@ -13,13 +17,22 @@
             <Picker x:Name="destination" BackgroundColor="Gray" WidthRequest="180"  />
         </VerticalStackLayout>
         <VerticalStackLayout>
-            <Label Text="Destination"/>
+            <Label Text="Date of Flight"/>
             <DatePicker x:Name="dateFlight" BackgroundColor="Gray" WidthRequest="180"   />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Time of Flight"/>
+            <TimePicker x:Name="TimeofFlight" BackgroundColor="Gray" WidthRequest="180"   />
         </VerticalStackLayout>
         <VerticalStackLayout>
             <Label Text="Number of seats"/>
             <Entry BackgroundColor="Gray" WidthRequest="180" Keyboard="Numeric" x:Name="numSeat"/>
         </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label Text="Fare"/>
+            <Entry BackgroundColor="Gray" WidthRequest="180" Keyboard="Numeric" x:Name="fare"/>
+        </VerticalStackLayout>
+
         <Button Clicked="Button_Clicked" Text="Add Flight"/>
 
     </VerticalStackLayout>

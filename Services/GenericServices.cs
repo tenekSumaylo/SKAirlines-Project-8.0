@@ -31,7 +31,7 @@ namespace SKAirlines_Project.Services
             var flights = JsonSerializer.Deserialize<ObservableCollection<Flight>>(jsonString);
             foreach ( var k in flights )
             {
-                if ( k.OriginPlace == origin && k.DestinationPlace == destination && k.FlightTime.Day == theDate.Day && k.FlightTime.Month == theDate.Month && k.FlightTime.Year == theDate.Year )
+                if ( k.OriginPlace == origin && k.DestinationPlace == destination && k.FlightDate.Day == theDate.Day && k.FlightDate.Month == theDate.Month && k.FlightDate.Year == theDate.Year )
                 {
                     searchedFlights.Add(k);
                 }

@@ -9,12 +9,12 @@ namespace SKAirlines_Project.Models
     public class Luggage : BaseModel
     {
         private string luggageID = string.Empty;
-        private Flight flightID;
+        private string flightID;
         private double luggageWeight;
         private int sequenceNumber;
         private double chargePerLuggage;
 
-        public Luggage( string id, Flight theFlight, double weight, int sequence, double charge)
+        public Luggage( string id, string theFlight, double weight, int sequence, double charge)
         {
             LuggageID = id;
             FlightID = theFlight;
@@ -33,7 +33,7 @@ namespace SKAirlines_Project.Models
             }
         }
 
-        public Flight FlightID
+        public string FlightID
         {
             get => this.flightID;
             set

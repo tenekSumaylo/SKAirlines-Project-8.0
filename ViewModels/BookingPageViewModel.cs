@@ -1,5 +1,6 @@
 ﻿using SKAirlines_Project.Models;
 using SKAirlines_Project.ServiceModel;
+using SKAirlines_Project.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,29 +19,36 @@ namespace SKAirlines_Project.ViewModels
         private DateTime OneWayDate;
         private DateTime ReturnDate;
         private ObservableCollection<Flight> flightsAvailable = new ObservableCollection<Flight>();
+        private ObservableCollection<Flight> flightsAvailableReturn = new ObservableCollection<Flight>();
         private ObservableCollection<Ticket> theTickets = new ObservableCollection<Ticket>();
         private DataPasser theDataPassed;
         private int adult;
         private int children;
         private int infant;
         private bool infantChecker;
+        private GenericServices genService; 
 
         // commands
 
         public ICommand ButtonOne => new Command(ButtonOneClicked);
         public ICommand ButtonOneBack => new Command(ButtonOneBackClicked);
 
-
-        private bool guestSet;  // page for setting the number of passengers
-        private bool chooseFlight; // page for choosing the flight
-        private bool detailsForm; // page for inputting the details
-        private bool addOnsSection; // page for selection of add ons
-        private bool seatSelection;  // page for seat selection
-
         public BookingPageViewModel() {
             PassengerAddPage = true;
+            genService = new GenericServices("Flight.json");
+            SearchFlight();
         }
 
+        public async void SearchFlight()
+        {
+            if ( TheDataPassed.IsRoundTrip )
+            {
+                FlightsAvailable = await genService.SearchFlights(TheDataPassed.Destination, TheDataPassed.Origin, TheDataPassed.OneWay);
+                FlightsAvailableReturn = await genService.SearchFlights(TheDataPassed.Origin, TheDataPassed.Destination, TheDataPassed.TwoWay);
+                return;
+            }
+            FlightsAvailable = await genService.SearchFlights(TheDataPassed.Destination, TheDataPassed.Origin, TheDataPassed.OneWay);
+        }
 
         public async void ButtonOneClicked() {
             if (!(Adult == 0 && Children == 0 && Infant == 0))
@@ -54,55 +62,6 @@ namespace SKAirlines_Project.ViewModels
         public async void ButtonOneBackClicked()
         {
         }
-        public bool GuestSet
-        {
-            get => this.guestSet;
-            set
-            {
-                this.guestSet = value;
-                OnPropertyChanged(nameof(GuestSet));
-            }
-        }
-
-        public bool ChooseFlight
-        {
-            get => this.chooseFlight;
-            set
-            {
-                this.chooseFlight = value;
-                OnPropertyChanged(nameof(ChooseFlight));
-            }
-        } 
-        public bool DetailsForm
-        {
-            get => this.detailsForm;
-            set
-            {
-                this.detailsForm = value;
-                OnPropertyChanged(nameof(DetailsForm)); 
-            }
-        }
-        public bool AddOnsSection
-        {
-            get => this.addOnsSection;
-            set
-            {
-                this.addOnsSection = value;
-                OnPropertyChanged(nameof(AddOnsSection));
-            }
-        } // page for selection of add ons
-        public bool SeatSelection
-        {
-            get => this.seatSelection;
-            set
-            {
-                this.seatSelection = value;
-                OnPropertyChanged(nameof(SeatSelection));
-            }
-        }  // page for seat selection
-
-
-
         public ObservableCollection<Flight> FlightsAvailable
         {
             get => this.flightsAvailable;
@@ -110,6 +69,16 @@ namespace SKAirlines_Project.ViewModels
             {
                 this.flightsAvailable = value;
                 OnPropertyChanged(nameof(FlightsAvailable));
+            }
+        }
+
+        public ObservableCollection<Flight> FlightsAvailableReturn
+        {
+            get => this.flightsAvailableReturn;
+            set
+            {
+                this.flightsAvailableReturn = value;
+                OnPropertyChanged(nameof(FlightsAvailableReturn));
             }
         }
         public DataPasser TheDataPassed

@@ -45,5 +45,10 @@ namespace SKAirlines_Project.Services
             string jsonString = JsonSerializer.Serialize(flights);
             await File.WriteAllTextAsync(filePath, jsonString);
         }
+
+        public void DeleteFile()
+        {
+            File.Delete(filePath);
+        }
     }
 }
