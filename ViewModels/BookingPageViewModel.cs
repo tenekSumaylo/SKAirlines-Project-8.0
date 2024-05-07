@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace SKAirlines_Project.ViewModels
 {
-  //  [QueryProperty(nameof(TheDataPassed), "TheDataPassed")]
+    [QueryProperty(nameof(TheDataPassed), "TheDataPassed")]
     public class BookingPageViewModel : BaseViewModel
     {
         public UserDomain UserDomain { get; set; }
@@ -21,22 +21,87 @@ namespace SKAirlines_Project.ViewModels
         private ObservableCollection<Flight> flightsAvailable = new ObservableCollection<Flight>();
         private ObservableCollection<Flight> flightsAvailableReturn = new ObservableCollection<Flight>();
         private ObservableCollection<Ticket> theTickets = new ObservableCollection<Ticket>();
+        private ObservableCollection<Ticket> theTicketsReturn = new ObservableCollection<Ticket>();
         private DataPasser theDataPassed;
         private int adult;
         private int children;
         private int infant;
         private bool infantChecker;
-        private GenericServices genService; 
+        private GenericServices genService;
+        private AdminService adService;
+        private Flight selectedFlight;
+        private SelectionMode selectionSelectFirst;
+        private Ticket selectedPerson;
+        private Ticket menuSelectPerson;
 
         // commands
 
         public ICommand ButtonOne => new Command(ButtonOneClicked);
         public ICommand ButtonOneBack => new Command(ButtonOneBackClicked);
+        public ICommand ButtonTwoBack => new Command(ButtonTwoBackClicked);
+        public ICommand ButtonThreeBack => new Command(ButtonThreeBackClicked);
+        public ICommand SelectedPersonCommand => new Command(SelectedPersonChange);
+
+        public Ticket MenuSelectPerson
+        {
+            get => this.menuSelectPerson;
+            set
+            {
+                this.menuSelectPerson = value;
+                OnPropertyChanged(nameof(MenuSelectPerson));
+            }
+        }
+
+        public void SelectedPersonChange()
+        {
+            SelectedPerson = MenuSelectPerson;
+        }
 
         public BookingPageViewModel() {
             PassengerAddPage = true;
-            genService = new GenericServices("Flight.json");
-            SearchFlight();
+            genService = new GenericServices("Flights.json");
+            SelectionSelectFirst = SelectionMode.Single;
+        }
+
+        public ObservableCollection<Ticket> TheTickets
+        {
+            get => this.theTickets;
+            set
+            {
+                this.theTickets = value;
+                OnPropertyChanged(nameof(TheTickets));
+            }
+        }
+
+        public Ticket SelectedPerson
+        {
+            get => this.selectedPerson;
+            set
+            {
+                this.selectedPerson = value;
+                OnPropertyChanged(nameof(SelectedPerson));
+            }
+
+        }
+
+        public ObservableCollection<Ticket> TheTicketsReturn
+        {
+            get => this.theTicketsReturn;
+            set
+            {
+                this.theTicketsReturn = value;
+                OnPropertyChanged(nameof(TheTicketsReturn));
+            }
+        }
+
+        public SelectionMode SelectionSelectFirst
+        {
+            get => this.selectionSelectFirst; 
+            set
+            {
+                this.selectionSelectFirst = value;
+                OnPropertyChanged(nameof(SelectionSelectFirst));
+            }
         }
 
         public async void SearchFlight()
@@ -50,10 +115,24 @@ namespace SKAirlines_Project.ViewModels
             FlightsAvailable = await genService.SearchFlights(TheDataPassed.Destination, TheDataPassed.Origin, TheDataPassed.OneWay);
         }
 
+        public void ButtonTwoBackClicked()
+        {
+            PassengerAddPage = true;
+        }
+
+        public void ButtonThreeBackClicked()  // hopeless case fuckers
+        {
+            ChooseFlightPage = true;
+            SelectionSelectFirst = SelectionMode.None;
+            SelectionSelectFirst = SelectionMode.Single;
+        }
+
         public async void ButtonOneClicked() {
             if (!(Adult == 0 && Children == 0 && Infant == 0))
             {
                 ChooseFlightPage = true;
+                TheTickets.Clear();
+                CreateGuests();
                 return;
             }
             await Shell.Current.DisplayAlert("No passenger", "Input atleast one passenger", "Confirm");
@@ -61,6 +140,7 @@ namespace SKAirlines_Project.ViewModels
 
         public async void ButtonOneBackClicked()
         {
+            await Shell.Current.GoToAsync("..");
         }
         public ObservableCollection<Flight> FlightsAvailable
         {
@@ -81,6 +161,34 @@ namespace SKAirlines_Project.ViewModels
                 OnPropertyChanged(nameof(FlightsAvailableReturn));
             }
         }
+
+        public Flight SelectedFlight
+        {
+            get => this.selectedFlight;
+            set
+            {
+                DetailsPage = true;
+                this.selectedFlight = value;
+                OnPropertyChanged(nameof(SelectedFlight));
+                SetPerson();
+
+            }
+        }
+
+        public void SetPerson()
+        {
+            int i = 0;
+            foreach (var setPerson in TheTickets)
+            {
+                setPerson.DestinationLocation = SelectedFlight.DestinationPlace;
+                setPerson.OriginLocation = SelectedFlight.OriginPlace;
+                setPerson.DateFlight = SelectedFlight.FlightDate;
+                setPerson.TimeFlight = SelectedFlight.FlightTime;
+                setPerson.ChargePerTicket = SelectedFlight.Fare;
+                i++;
+            }
+        }
+
         public DataPasser TheDataPassed
         {
             get => theDataPassed; 
@@ -88,6 +196,7 @@ namespace SKAirlines_Project.ViewModels
             {
                 this.theDataPassed = value;
                 OnPropertyChanged(nameof(TheDataPassed));
+                SearchFlight();
             }
         }
 
@@ -138,5 +247,30 @@ namespace SKAirlines_Project.ViewModels
                 OnPropertyChanged( nameof(InfantChecker));  
             }
         }
+
+        public void CreateGuests()
+        {
+            Ticket ChainPerson;
+            for (int i = 1; i <= Adult + Children + Infant; ++i)
+            {
+                if (i <= Adult)
+                {
+
+                    ChainPerson = new Ticket( 1, i );
+                    TheTickets.Add(ChainPerson);
+                }
+                else if (i <= Adult + Children)
+                {
+                    ChainPerson = new Ticket(2, i);
+                    TheTickets.Add(ChainPerson);
+                }
+                else if ( i <= Adult + Children + Infant )
+                {
+                    ChainPerson = new Ticket(3, i);
+                    TheTickets.Add( ChainPerson );
+                }
+
+            }
+        } 
     }
 }

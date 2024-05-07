@@ -48,6 +48,7 @@ public partial class AdminPage : ContentPage
 		Seats = Convert.ToInt32(numSeat.Text); // seats
 		theFlight.NumberOfSeats = Seats;  // seats
 		theFlight.FlightDate = dateFlight.Date;  // date 
+		theFlight.FlightTime = TimeofFlight.Time;
 		MakeSeats(); 
 		ObservableCollection<Flight> theFlights = await adservice.GetFlights();
 		theFlights.Add(theFlight);
@@ -64,6 +65,7 @@ public partial class AdminPage : ContentPage
 			theFlight.TheSeats.Add(checkSeat);
 		}
 	}
+	
 
     private string GetPlace(int indexed)
     {

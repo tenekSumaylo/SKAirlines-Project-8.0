@@ -27,19 +27,19 @@ namespace SKAirlines_Project.Models
              
         }
 
-        public Passenger( int ageS )
+        public Passenger( int ageS, int sequence)
         {
             if (ageS == 1)
             {
-                Title = "Adult";
+                Title = "Adult" + "-" + sequence;
             }
             else if (ageS == 2)
             {
-                Title = "Child";
+                Title = "Child" + "-" + sequence;
             }
             else
             {
-                Title = "Infant";
+                Title = "Infant" + "-" + sequence;
             }
 
         }

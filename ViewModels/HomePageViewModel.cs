@@ -114,7 +114,7 @@ namespace SKAirlines_Project.ViewModels
                     PickerState = false;
                     IsRoundTrip = false;
                 }
-                else
+                else 
                 {
                     PickerState = true;
                     IsRoundTrip = true;
@@ -195,7 +195,7 @@ namespace SKAirlines_Project.ViewModels
             {
                 if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day )
                 {
-                    if ( isRoundTrip == true )
+                    if ( IsRoundTrip )
                     {
                         foreach ( var k in availableFlights )
                         {
@@ -210,6 +210,7 @@ namespace SKAirlines_Project.ViewModels
                         if ( i == 0 )
                         {
                             j = 0;
+                            break;
                         }
                         else
                         {
@@ -217,18 +218,11 @@ namespace SKAirlines_Project.ViewModels
                             break;
                         }
                     }
-                    else if ( isRoundTrip == false ) { }
+                    else if ( !IsRoundTrip  ) { }
                     {
                         TheDataPassed = new DataPasser(TheUser, f.OriginPlace, f.DestinationPlace, f.FlightDate, IsRoundTrip);
                         j++;
                         break;
-                    }
-                }
-                else if  ( IsRoundTrip == true ) 
-                {
-                    if (f.OriginPlace == theOrig && f.DestinationPlace == findDest && f.FlightDate.Month == OneWay.Month && f.FlightDate.Year == OneWay.Year && f.FlightDate.Day == OneWay.Day )
-                    {
-                        TheDataPassed = new DataPasser(TheUser, f.OriginPlace, f.DestinationPlace, f.FlightDate, IsRoundTrip);
                     }
                 }
             }
@@ -244,7 +238,7 @@ namespace SKAirlines_Project.ViewModels
                 };
                 //await Shell.Current.GoToAsync(nameof(BookingPage));
                 //await Shell.Current.GoToAsync("HomePage/BookingPage", theDictionary);
-                await Shell.Current.GoToAsync(nameof(BookingPage));
+                await Shell.Current.GoToAsync("BookingPage", theDictionary);
             }
 
         }

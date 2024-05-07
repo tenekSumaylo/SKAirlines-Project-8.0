@@ -8,9 +8,8 @@ namespace SKAirlines_Project
         {
             InitializeComponent();
             Routing.RegisterRoute( "MainPage", typeof( MainPage ) );
-            Routing.RegisterRoute( "MainPage/RegisterPage", typeof(RegisterPage) );
-            Routing.RegisterRoute( "MainPage/HomePage", typeof(HomePage));
-            Routing.RegisterRoute( "BookingPage", typeof( BookingPage ) );
+            Routing.RegisterRoute( "RegisterPage", typeof(RegisterPage) );
+            Routing.RegisterRoute("BookingPage", typeof( BookingPage ) );
             Routing.RegisterRoute( "AdminPage", typeof(AdminPage));
         }
     }

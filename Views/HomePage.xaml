@@ -7,8 +7,7 @@
              x:DataType="viewmodel:HomePageViewModel"
              xmlns:model="clr-namespace:SKAirlines_Project.Models"
              xmlns:set="clr-namespace:SKAirlines_Project"
-             Shell.BackgroundColor="Green"
-             Shell.NavBarIsVisible="True"
+             Shell.NavBarIsVisible="False"
              >
     <ScrollView>
         <VerticalStackLayout>

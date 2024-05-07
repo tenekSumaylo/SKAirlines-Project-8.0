@@ -17,13 +17,17 @@ namespace SKAirlines_Project.Services
         public GenericServices() { }
         public GenericServices( string name )
         {
-            filePath += name;
+            this.filePath += name;
         }
 
         public async Task<ObservableCollection<Flight>> SearchFlights( string destination, string origin, DateTime theDate)
         {
             ObservableCollection<Flight> searchedFlights = new ObservableCollection<Flight>();
-            var info = new FileInfo(filePath);
+            var info = new FileInfo(this.filePath);
+            if ( info == null )
+            {
+                return new ObservableCollection<Flight>();
+            }
             if (info.Length == 0)
                 return new ObservableCollection<Flight>();
 

@@ -49,7 +49,7 @@ namespace SKAirlines_Project.ViewModels
                         {
                             { "TheUser", userData }
                         };
-                        await Shell.Current.GoToAsync($"{nameof(HomePage)}", theDictionary);
+                        await Shell.Current.GoToAsync($"//{nameof(HomePage)}", theDictionary);
                     }
                 }
                 if (detect == 0)

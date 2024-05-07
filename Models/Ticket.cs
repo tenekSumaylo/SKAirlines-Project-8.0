@@ -15,11 +15,16 @@ namespace SKAirlines_Project.Models
         private string destinationLocation = string.Empty;
         private string originLocation = string.Empty;
         private DateTime dateFlight;
-        private DateTime timeFlight;
+        private TimeSpan timeFlight;
         private int flightStatus;
         private bool isCancelled;
         private double totalLuggagePrice;
         private double chargePerTicket;
+
+        public Ticket( int typeOfPerson, int number ) : base( typeOfPerson, number )
+        {
+
+        }
 
         public string TicketID
         {
@@ -79,7 +84,7 @@ namespace SKAirlines_Project.Models
             }
         }
 
-        public DateTime TimeFlight
+        public TimeSpan TimeFlight
         {
             get => this.timeFlight;
             set

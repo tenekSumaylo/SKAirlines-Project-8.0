@@ -1,8 +1,7 @@
+using System.Collections.ObjectModel;
 using SKAirlines_Project.Models;
 using SKAirlines_Project.Services;
 using SKAirlines_Project.ViewModels;
-using System.Collections.ObjectModel;
-
 namespace SKAirlines_Project.Views;
 
 public partial class BookingPage : ContentPage
