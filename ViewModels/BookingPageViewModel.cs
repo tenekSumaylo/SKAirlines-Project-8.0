@@ -31,8 +31,11 @@ namespace SKAirlines_Project.ViewModels
         private AdminService adService;
         private Flight selectedFlight;
         private SelectionMode selectionSelectFirst;
-        private Ticket selectedPerson;
+        private ObservableCollection<Ticket> selectedPerson = new ObservableCollection<Ticket>();
         private Ticket menuSelectPerson;
+        private Ticket testPerson;
+
+        public ObservableCollection<Ticket> InserterOfData { get; set; }
 
         // commands
 
@@ -42,25 +45,49 @@ namespace SKAirlines_Project.ViewModels
         public ICommand ButtonThreeBack => new Command(ButtonThreeBackClicked);
         public ICommand SelectedPersonCommand => new Command(SelectedPersonChange);
 
+        public Ticket TestPerson
+        {
+            get => this.testPerson;
+            set
+            {
+                this.testPerson = value;
+                OnPropertyChanged(nameof(TestPerson));
+            }
+        }
+
         public Ticket MenuSelectPerson
         {
             get => this.menuSelectPerson;
             set
             {
+                if ( SelectedPerson != null )
+                {
+                    foreach ( var j in SelectedPerson )
+                    {
+                        InserterOfData.Add(j);
+                    }
+                }
                 this.menuSelectPerson = value;
                 OnPropertyChanged(nameof(MenuSelectPerson));
+                if ( MenuSelectPerson != null )
+                {
+                    SelectedPerson.Clear();
+                    SelectedPerson.Add(MenuSelectPerson);
+                }
+
             }
         }
 
         public void SelectedPersonChange()
         {
-            SelectedPerson = MenuSelectPerson;
+            
         }
 
         public BookingPageViewModel() {
             PassengerAddPage = true;
             genService = new GenericServices("Flights.json");
             SelectionSelectFirst = SelectionMode.Single;
+            InserterOfData = new ObservableCollection<Ticket>();
         }
 
         public ObservableCollection<Ticket> TheTickets
@@ -73,7 +100,7 @@ namespace SKAirlines_Project.ViewModels
             }
         }
 
-        public Ticket SelectedPerson
+        public ObservableCollection<Ticket> SelectedPerson
         {
             get => this.selectedPerson;
             set
@@ -185,8 +212,14 @@ namespace SKAirlines_Project.ViewModels
                 setPerson.DateFlight = SelectedFlight.FlightDate;
                 setPerson.TimeFlight = SelectedFlight.FlightTime;
                 setPerson.ChargePerTicket = SelectedFlight.Fare;
-                i++;
+                InserterOfData.Add(setPerson);
             }
+            TheTickets.Clear();
+            foreach (var setPerson in InserterOfData)
+            {
+                TheTickets.Add(setPerson);
+            }
+            InserterOfData.Clear();
         }
 
         public DataPasser TheDataPassed
@@ -271,6 +304,8 @@ namespace SKAirlines_Project.ViewModels
                 }
 
             }
+            // add persons 
+            MenuSelectPerson = TheTickets.First();
         } 
     }
 }

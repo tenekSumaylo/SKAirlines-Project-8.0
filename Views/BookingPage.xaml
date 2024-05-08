@@ -139,7 +139,7 @@
 
             <VerticalStackLayout Grid.Row="1" x:Name="inputG" IsVisible="{Binding DetailsPage}">
                 <BoxView Color="#19B0EC" HeightRequest="2" HorizontalOptions="Fill"/>
-                <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0" SelectionMode="Single" ItemsSource="{Binding TheTickets}" SelectionChangedCommand="{Binding SelectedPersonCommand}" SelectedItem="{Binding MenuSelectPerson}">
+                <CollectionView x:Name="Guests" HeightRequest="65" ItemsLayout="HorizontalList" Margin="4,4,0,0" SelectionMode="Single" ItemsSource="{Binding TheTickets}" SelectedItem="{Binding MenuSelectPerson}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Passenger">
                             <Border Margin="5,0,0,0" HeightRequest="50"  WidthRequest="80" HorizontalOptions="Center">
@@ -155,10 +155,11 @@
                 </CollectionView>
                 <BoxView Color="#19B0EC" HeightRequest="2" HorizontalOptions="Fill"/>
 
-                <CollectionView ItemsSource="{Binding SelectedPerson}" SelectedItem="{Binding SelectedPerson}">
+                <CollectionView ItemsSource="{Binding SelectedPerson}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Passenger">
-                            <VerticalStackLayout Margin="15,20,0,0">
+                        <DataTemplate x:DataType="model:Ticket" >
+                            <VerticalStackLayout Margin="15,20,15,0" BackgroundColor="White">
+                                <Label Text="{Binding Title}"/>
                                 <Label Text="Name" TextColor="Black" FontAttributes="Bold" FontSize="25"/>
                                 <Label Text="First Name                        Last Name" FontAttributes="Bold"/>
                                 <HorizontalStackLayout>
