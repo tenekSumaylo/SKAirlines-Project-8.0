@@ -155,7 +155,7 @@
                 </CollectionView>
                 <BoxView Color="#19B0EC" HeightRequest="2" HorizontalOptions="Fill"/>
 
-                <CollectionView ItemsSource="{Binding SelectedPerson}">
+                <CollectionView ItemsSource="{Binding SelectedPerson}" SelectionChangedCommand="{Binding SelectedPersonCommand}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Ticket" >
                             <VerticalStackLayout Margin="15,20,15,0" BackgroundColor="White">

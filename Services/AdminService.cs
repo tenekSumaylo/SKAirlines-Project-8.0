@@ -38,6 +38,11 @@ namespace SKAirlines_Project.Services
 
         }
 
+        public async Task<int> GetNumberOfFLights()
+        {
+            var info = new FileInfo(filePath);
+            return (int)info.Length/1024;
+        }
         public async void SaveToFile(ObservableCollection<Flight> flights)
         {
             if (flights == null)

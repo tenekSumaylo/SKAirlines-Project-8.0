@@ -25,7 +25,9 @@ public partial class AdminPage : ContentPage
 		dateFlight.Date = DateTime.Now;
 		planetype.ItemsSource = planes;
 		TimeofFlight.Time = TimeSpan.MinValue;
-	}
+        FlightName.Text = "Flight" + "-" + Convert.ToString(adservice.GetNumberOfFLights().Result + 1);
+        //FlightName.Text = "Flight" + "-" + Convert.ToString(Convert.ToInt32(adservice.GetNumberOfFLights()) + 1); 
+    }
 
 	List<string> originPlaces = new List<string>()
 	{
@@ -41,6 +43,7 @@ public partial class AdminPage : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
+		theFlight.FlightID = "Flight" + "-" + Convert.ToString( adservice.GetNumberOfFLights().Result + 1 );
 		theFlight.PlaneName = GetPlane(planetype.SelectedIndex);  // planeName
 		theFlight.OriginPlace = GetPlace( origin.SelectedIndex);  // origin
 		theFlight.DestinationPlace = GetPlace( destination.SelectedIndex);  // destination
@@ -53,7 +56,7 @@ public partial class AdminPage : ContentPage
 		ObservableCollection<Flight> theFlights = await adservice.GetFlights();
 		theFlights.Add(theFlight);
 		adservice.SaveToFile(theFlights);
-		await Shell.Current.Navigation.PopAsync();
+		await Shell.Current.GoToAsync("//MainPage");
     }
 
 	private void MakeSeats()

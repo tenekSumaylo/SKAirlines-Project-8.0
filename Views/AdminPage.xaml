@@ -5,6 +5,9 @@
              Title="AdminPage">
     <VerticalStackLayout Padding="0,25,0,0" Spacing="18" HorizontalOptions="Center">
         <VerticalStackLayout Spacing="5">
+            <Label x:Name="FlightName" BackgroundColor="Red"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Spacing="5">
             <Label Text="Plane"/>
             <Picker x:Name="planetype" BackgroundColor="Gray" WidthRequest="180" />
         </VerticalStackLayout>
@@ -22,7 +25,7 @@
         </VerticalStackLayout>
         <VerticalStackLayout>
             <Label Text="Time of Flight"/>
-            <TimePicker x:Name="TimeofFlight" BackgroundColor="Gray" WidthRequest="180"   />
+            <TimePicker x:Name="TimeofFlight" BackgroundColor="Gray" WidthRequest="180"  />
         </VerticalStackLayout>
         <VerticalStackLayout>
             <Label Text="Number of seats"/>

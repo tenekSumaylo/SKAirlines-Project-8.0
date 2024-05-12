@@ -62,16 +62,12 @@ namespace SKAirlines_Project.ViewModels
             {
                 if ( SelectedPerson != null )
                 {
-                    foreach ( var j in SelectedPerson )
-                    {
-                        InserterOfData.Add(j);
-                    }
+                    SelectedPerson.Clear();
                 }
                 this.menuSelectPerson = value;
                 OnPropertyChanged(nameof(MenuSelectPerson));
                 if ( MenuSelectPerson != null )
                 {
-                    SelectedPerson.Clear();
                     SelectedPerson.Add(MenuSelectPerson);
                 }
 
@@ -80,7 +76,21 @@ namespace SKAirlines_Project.ViewModels
 
         public void SelectedPersonChange()
         {
-            
+            int i = Convert.ToInt32( SelectedPerson.First().Title[ SelectedPerson.First().Title.Length - 1 ]);
+            var roundTripVar = TheTicketsReturn.First();
+            var thePerson = SelectedPerson.First();
+            TheTickets.RemoveAt(i);
+            TheTickets.Insert(i, thePerson);
+            if ( TheDataPassed.IsRoundTrip )
+            {
+                thePerson.OriginLocation = TheDataPassed.ReturnOrigin;
+                thePerson.DestinationLocation = TheDataPassed.ReturnDestination;
+                thePerson.DateFlight = roundTripVar.DateFlight;
+                thePerson.TimeFlight = roundTripVar.TimeFlight;
+                thePerson.ChargePerTicket = roundTripVar.ChargePerTicket;
+                TheTicketsReturn.RemoveAt(i);
+                TheTickets.Insert(i, thePerson);
+            }
         }
 
         public BookingPageViewModel() {
@@ -197,29 +207,53 @@ namespace SKAirlines_Project.ViewModels
                 DetailsPage = true;
                 this.selectedFlight = value;
                 OnPropertyChanged(nameof(SelectedFlight));
-                SetPerson();
+                SetPerson( 1 );
 
             }
         }
 
-        public void SetPerson()
+        public void SetPerson( int i )
         {
-            int i = 0;
-            foreach (var setPerson in TheTickets)
+            InserterOfData.Clear();
+            if (i == 1)
             {
-                setPerson.DestinationLocation = SelectedFlight.DestinationPlace;
-                setPerson.OriginLocation = SelectedFlight.OriginPlace;
-                setPerson.DateFlight = SelectedFlight.FlightDate;
-                setPerson.TimeFlight = SelectedFlight.FlightTime;
-                setPerson.ChargePerTicket = SelectedFlight.Fare;
-                InserterOfData.Add(setPerson);
+                foreach (var setPerson in TheTickets)
+                {
+                    setPerson.DestinationLocation = SelectedFlight.DestinationPlace;
+                    setPerson.OriginLocation = SelectedFlight.OriginPlace;
+                    setPerson.DateFlight = SelectedFlight.FlightDate;
+                    setPerson.TimeFlight = SelectedFlight.FlightTime;
+                    setPerson.ChargePerTicket = SelectedFlight.Fare;
+                    InserterOfData.Add(setPerson);
+                }
+                TheTickets.Clear();
             }
-            TheTickets.Clear();
+            else
+            {
+                foreach (var setPerson in TheTicketsReturn)
+                {
+                    setPerson.DestinationLocation = SelectedFlight.DestinationPlace;
+                    setPerson.OriginLocation = SelectedFlight.OriginPlace;
+                    setPerson.DateFlight = SelectedFlight.FlightDate;
+                    setPerson.TimeFlight = SelectedFlight.FlightTime;
+                    setPerson.ChargePerTicket = SelectedFlight.Fare;
+                    InserterOfData.Add(setPerson);
+                }
+                TheTicketsReturn.Clear();
+            }
+
             foreach (var setPerson in InserterOfData)
             {
-                TheTickets.Add(setPerson);
+                if ( i == 1 )
+                {
+                    TheTickets.Add(setPerson);
+                }
+                else
+                {
+                    TheTicketsReturn.Add(setPerson);
+                }
+
             }
-            InserterOfData.Clear();
         }
 
         public DataPasser TheDataPassed
@@ -301,6 +335,26 @@ namespace SKAirlines_Project.ViewModels
                 {
                     ChainPerson = new Ticket(3, i);
                     TheTickets.Add( ChainPerson );
+                }
+
+                if ( TheDataPassed.IsRoundTrip )
+                {
+                    if (i <= Adult)
+                    {
+
+                        ChainPerson = new Ticket(1, i);
+                        TheTicketsReturn.Add(ChainPerson);
+                    }
+                    else if (i <= Adult + Children)
+                    {
+                        ChainPerson = new Ticket(2, i);
+                        TheTicketsReturn.Add(ChainPerson);
+                    }
+                    else if (i <= Adult + Children + Infant)
+                    {
+                        ChainPerson = new Ticket(3, i);
+                        TheTicketsReturn.Add(ChainPerson);
+                    }
                 }
 
             }
