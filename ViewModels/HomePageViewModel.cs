@@ -31,7 +31,6 @@ namespace SKAirlines_Project.ViewModels
 
         public DataPasser TheDataPassed { get; set; }
         public ICommand SearchCommand => new Command(SearchFlight);
-
         public List<string> TypeOfFlight { get; set; }
         public HomePageViewModel() {
             ImagePics = new ObservableCollection<ClassPics>();
@@ -39,7 +38,19 @@ namespace SKAirlines_Project.ViewModels
             Places = ReturnPlaces();
             OneWay = DateTime.Now;
             TwoWay = DateTime.Now;
+            MinDate = DateTime.Now;
+        }
 
+
+        public ICommand GoToProfileCommand => new Command(GoToProfile);
+
+        public async void GoToProfile()
+        {
+            var theDictionary = new Dictionary<string, object>
+            {
+                            { "TheUser", this.theUser }
+            };
+            await Shell.Current.GoToAsync("ProfilePage", theDictionary);
         }
 
         public string Otin

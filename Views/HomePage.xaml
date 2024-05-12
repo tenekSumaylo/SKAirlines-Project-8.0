@@ -11,14 +11,17 @@
              >
     <ScrollView>
         <VerticalStackLayout>
-            <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
+            <HorizontalStackLayout>
+                <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
+                <ImageButton Source="profileicon.png" HorizontalOptions="End" Margin="80,0,0,0" Command="{Binding GoToProfileCommand}"/>
+            </HorizontalStackLayout>
             <ScrollView>
                 <VerticalStackLayout>
                     <Grid RowDefinitions="300,370,600,600">
                         <CarouselView ItemsSource="{Binding ImagePics}" Grid.Row="0" Loop="True">
                             <CarouselView.ItemTemplate>
                                 <DataTemplate x:DataType="set:ClassPics">
-                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill" />
                                 </DataTemplate>
                             </CarouselView.ItemTemplate>
                         </CarouselView>

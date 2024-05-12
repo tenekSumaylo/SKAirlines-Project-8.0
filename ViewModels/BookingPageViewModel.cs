@@ -30,7 +30,6 @@ namespace SKAirlines_Project.ViewModels
         private GenericServices genService;
         private AdminService adService;
         private Flight selectedFlight;
-        private SelectionMode selectionSelectFirst;
         private ObservableCollection<Ticket> selectedPerson = new ObservableCollection<Ticket>();
         private Ticket menuSelectPerson;
         private Ticket testPerson;
@@ -96,7 +95,6 @@ namespace SKAirlines_Project.ViewModels
         public BookingPageViewModel() {
             PassengerAddPage = true;
             genService = new GenericServices("Flights.json");
-            SelectionSelectFirst = SelectionMode.Single;
             InserterOfData = new ObservableCollection<Ticket>();
         }
 
@@ -131,16 +129,6 @@ namespace SKAirlines_Project.ViewModels
             }
         }
 
-        public SelectionMode SelectionSelectFirst
-        {
-            get => this.selectionSelectFirst; 
-            set
-            {
-                this.selectionSelectFirst = value;
-                OnPropertyChanged(nameof(SelectionSelectFirst));
-            }
-        }
-
         public async void SearchFlight()
         {
             if ( TheDataPassed.IsRoundTrip )
@@ -160,8 +148,6 @@ namespace SKAirlines_Project.ViewModels
         public void ButtonThreeBackClicked()  // hopeless case fuckers
         {
             ChooseFlightPage = true;
-            SelectionSelectFirst = SelectionMode.None;
-            SelectionSelectFirst = SelectionMode.Single;
         }
 
         public async void ButtonOneClicked() {

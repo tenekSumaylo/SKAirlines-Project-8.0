@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SKAirlines_Project.Views.ProfilePage"
+             Title="ProfilePage"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout>
+        <HorizontalStackLayout >
+            <ImageButton Source="titlesourceicon.png" HorizontalOptions="Start"/>
+            <Label Text="Logout" HorizontalOptions="End" Margin="120,0,0,0" VerticalTextAlignment="Center" TextColor="#0078AA" FontAttributes="Bold" FontSize="15">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView Color="#19B0EC" HeightRequest="2" HorizontalOptions="Fill"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

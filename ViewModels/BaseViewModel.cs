@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SKAirlines_Project.ViewModels
 {
@@ -18,6 +19,7 @@ namespace SKAirlines_Project.ViewModels
         private bool detailsPage;
         private bool addOnsPage;
         private bool seatSelectionPage;
+        private bool chooseFlightPageRoundTrip;
         private DateTime minDate;
 
         public void PageConverter()
@@ -27,6 +29,7 @@ namespace SKAirlines_Project.ViewModels
             DetailsPage = false;
             AddOnsPage = false;
             SeatSelectionPage = false;
+            ChooseFlightPageRoundTrip = false;
         }
 
         public DateTime MinDate
@@ -64,6 +67,20 @@ namespace SKAirlines_Project.ViewModels
                 }
                 this.chooseFlightPage = value;
                 OnPropertyChanged(nameof(ChooseFlightPage));
+            }
+        }
+
+        public bool ChooseFlightPageRoundTrip
+        {
+            get => this.chooseFlightPageRoundTrip;
+            set
+            {
+                if (value == true)
+                {
+                    PageConverter();
+                }
+                this.chooseFlightPageRoundTrip = value;
+                OnPropertyChanged(nameof(ChooseFlightPageRoundTrip));
             }
         }
 

@@ -38,7 +38,7 @@
 
             <!--#region -->
             <VerticalStackLayout Spacing="20" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" x:Name="GuestAppend" Margin="0,25,0,0" IsVisible="{Binding PassengerAddPage}">
-                <Label Text="Hi, where would you like to go?" FontSize="22" HorizontalOptions="Start"/>
+                <Label Text="Hi, how many are you bringing?" FontSize="22" HorizontalOptions="Start"/>
                 <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="5">
                     <Label Text="Adult" FontSize="18"/>
                     <Frame HeightRequest="50" HorizontalOptions="Start">
@@ -92,7 +92,78 @@
                     <DatePicker VerticalOptions="Center" WidthRequest="80" Margin="8,0,0,0"/>
                 </HorizontalStackLayout>
                 <Grid RowDefinitions="600, *">
-                    <CollectionView x:Name="flightsAvail" Margin="0,5,0,0" Grid.Row="0" SelectionMode="{Binding SelectionSelectFirst}" ItemsSource="{Binding FlightsAvailable}" SelectedItem="{Binding SelectedFlight}">
+                    <CollectionView x:Name="flightsAvail" Margin="0,5,0,0" Grid.Row="0" SelectionMode="Single" ItemsSource="{Binding FlightsAvailable}" SelectedItem="{Binding SelectedFlight}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Flight">
+                                <HorizontalStackLayout Margin="0,0,0,10" Padding="5,0,0,0">
+                                    <Image Source="bookflightdesign.png" HorizontalOptions="Start" Aspect="Fill"/>
+                                    <Border BackgroundColor="Yellow" HeightRequest="125" WidthRequest="370" Margin="0,0,0,0" >
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="0,40,0,40"/>
+                                        </Border.StrokeShape>
+                                        <Grid ColumnDefinitions="80,100,90,50" HorizontalOptions="Start" VerticalOptions="Center">
+                                            <VerticalStackLayout Grid.Column="0" Spacing="5" Padding="10,0,0,10" VerticalOptions="Center">
+                                                <HorizontalStackLayout>
+                                                    <Label Text="{Binding FlightTime.Hours}" FontAttributes="Bold"/>
+                                                    <Label Text=":"/>
+                                                    <Label Text="{Binding FlightTime.Minutes}" FontAttributes="Bold"/>
+                                                </HorizontalStackLayout>
+                                                <Label Text="{Binding OriginPlace}" FontAttributes="Bold"/>
+                                            </VerticalStackLayout>
+                                            <HorizontalStackLayout Grid.Column="1" Spacing="5" Padding="10,0,0,0">
+                                                <Image Source="selectairplane.png" HorizontalOptions="Start"/>
+                                                <Label Text="{Binding DestinationPlace}" VerticalOptions="Center"/>
+                                            </HorizontalStackLayout>
+                                            <VerticalStackLayout Grid.Column="2" Spacing="5" VerticalOptions="Center">
+                                                <Label Text="{Binding PlaneName}"/>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="3" Spacing="5">
+                                                <Label Text="Fare"/>
+                                                <HorizontalStackLayout>
+                                                    <Label Text="P"/>
+                                                    <Label Text="{Binding Fare}"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+                        <Button Text="Back" WidthRequest="80" BackgroundColor="#19B0EC" Command="{Binding ButtonTwoBack}"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+            <!--#region -->
+
+            <!--#region -->
+            <VerticalStackLayout Grid.Row="1" x:Name="BookFlightPageRoundTrip" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding ChooseFlightPageRoundTrip}">
+                <HorizontalStackLayout HeightRequest="65">
+                    <Frame WidthRequest="100">
+                        <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center">
+                            <Label Text="30, Mar" HorizontalOptions="Center"/>
+                            <BoxView Color="#19B0EC" HeightRequest="2" WidthRequest="25"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame WidthRequest="100" HasShadow="True">
+                        <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center">
+                            <Label Text="30, Mar" HorizontalOptions="Center"/>
+                            <BoxView Color="White" HeightRequest="2" WidthRequest="25"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame WidthRequest="100" HasShadow="True">
+                        <VerticalStackLayout Background="White" WidthRequest="100"  VerticalOptions="Center">
+                            <Label Text="30, Mar" HorizontalOptions="Center"/>
+                            <BoxView Color="White" HeightRequest="2" WidthRequest="25"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <DatePicker VerticalOptions="Center" WidthRequest="80" Margin="8,0,0,0"/>
+                </HorizontalStackLayout>
+                <Grid RowDefinitions="600, *">
+                    <CollectionView x:Name="flightsAvail" Margin="0,5,0,0" Grid.Row="0" SelectionMode="Single" ItemsSource="{Binding FlightsAvailableReturn}" SelectedItem="{Binding SelectedFlight}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Flight">
                                 <HorizontalStackLayout Margin="0,0,0,10" Padding="5,0,0,0">

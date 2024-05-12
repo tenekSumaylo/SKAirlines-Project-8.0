@@ -10,7 +10,7 @@ namespace SKAirlines_Project.Models
     public class Ticket : Passenger
     {
         private string ticketID = string.Empty;
-        private ObservableCollection<Luggage> luggages;
+        private ObservableCollection<Luggage> luggages = new ObservableCollection<Luggage>();
         private Seat seatID;
         private string destinationLocation = string.Empty;
         private string originLocation = string.Empty;
