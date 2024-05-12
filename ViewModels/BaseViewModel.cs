@@ -18,6 +18,7 @@ namespace SKAirlines_Project.ViewModels
         private bool detailsPage;
         private bool addOnsPage;
         private bool seatSelectionPage;
+        private DateTime minDate;
 
         public void PageConverter()
         {
@@ -26,6 +27,16 @@ namespace SKAirlines_Project.ViewModels
             DetailsPage = false;
             AddOnsPage = false;
             SeatSelectionPage = false;
+        }
+
+        public DateTime MinDate
+        {
+            get => this.minDate;
+            set
+            {
+                this.minDate = value;
+                OnPropertyChanged(nameof(MinDate));
+            }
         }
 
         public bool PassengerAddPage

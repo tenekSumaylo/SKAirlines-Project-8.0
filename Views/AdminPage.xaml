@@ -21,7 +21,7 @@
         </VerticalStackLayout>
         <VerticalStackLayout>
             <Label Text="Date of Flight"/>
-            <DatePicker x:Name="dateFlight" BackgroundColor="Gray" WidthRequest="180"   />
+            <DatePicker x:Name="dateFlight" BackgroundColor="Gray" WidthRequest="180"/>
         </VerticalStackLayout>
         <VerticalStackLayout>
             <Label Text="Time of Flight"/>

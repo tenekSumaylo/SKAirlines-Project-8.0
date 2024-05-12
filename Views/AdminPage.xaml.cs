@@ -26,6 +26,7 @@ public partial class AdminPage : ContentPage
 		planetype.ItemsSource = planes;
 		TimeofFlight.Time = TimeSpan.MinValue;
         FlightName.Text = "Flight" + "-" + Convert.ToString(adservice.GetNumberOfFLights().Result + 1);
+		dateFlight.MinimumDate = DateTime.Now;
         //FlightName.Text = "Flight" + "-" + Convert.ToString(Convert.ToInt32(adservice.GetNumberOfFLights()) + 1); 
     }
 

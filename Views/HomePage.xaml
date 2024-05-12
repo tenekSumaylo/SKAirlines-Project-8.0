@@ -39,11 +39,11 @@
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="3" WidthRequest="200">
                                 <Label Text="Departure"/>
-                                <DatePicker Date="{Binding OneWay}"/>
+                                <DatePicker Date="{Binding OneWay}" MinimumDate="{Binding MinDate}"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Row="4" WidthRequest="200">
                                 <Label Text="Return"/>
-                                <DatePicker IsEnabled="{Binding PickerState}" Date="{Binding TwoWay}"/>
+                                <DatePicker IsEnabled="{Binding PickerState}" Date="{Binding TwoWay}" MinimumDate="{Binding MinDate}"/>
                             </VerticalStackLayout>
                             <Button Grid.Row="5" WidthRequest="150" Text="Search Flight" HeightRequest="40" BackgroundColor="#19B0EC" Command="{Binding SearchCommand}"/>
                         </Grid>
