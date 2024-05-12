@@ -30,11 +30,15 @@ namespace SKAirlines_Project.ViewModels
         private GenericServices genService;
         private AdminService adService;
         private Flight selectedFlight;
-        private ObservableCollection<Ticket> selectedPerson = new ObservableCollection<Ticket>();
+        private ObservableCollection<Ticket> selectedPerson;
         private Ticket menuSelectPerson;
         private Ticket testPerson;
-
+        private Flight selectedFlightReturn;
         public ObservableCollection<Ticket> InserterOfData { get; set; }
+        private ObservableCollection<Seat> selectedSeats = new ObservableCollection<Seat>();
+        private Seat seatSelect = new Seat();
+        private ObservableCollection<Seat> theSeats = new ObservableCollection<Seat>();
+        private List<Seat> testSeats = new List<Seat>();
 
         // commands
 
@@ -43,6 +47,33 @@ namespace SKAirlines_Project.ViewModels
         public ICommand ButtonTwoBack => new Command(ButtonTwoBackClicked);
         public ICommand ButtonThreeBack => new Command(ButtonThreeBackClicked);
         public ICommand SelectedPersonCommand => new Command(SelectedPersonChange);
+        public ICommand GuestNextCommand => new Command(GuestNext);
+        public ICommand SeatSelectionCommand => new Command(SeatSelectionRedirect);
+
+        public ICommand ButtonTwoBackReturn => new Command(ButtonTwoBackReturnClicked);
+
+
+        public ICommand SelectedSeatsOneCommand => new Command(selectSeatsOne);
+
+        public Seat SeatSelect
+        {
+            get => this.seatSelect;
+            set
+            {
+                this.seatSelect = value;
+                OnPropertyChanged(nameof(SeatSelect));
+            }
+        }
+
+        public List<Seat> TestSeats
+        {
+            get => this.testSeats;
+            set
+            {
+                this.testSeats = value;
+                OnPropertyChanged(nameof(TestSeats));
+            }
+        }
 
         public Ticket TestPerson
         {
@@ -54,22 +85,80 @@ namespace SKAirlines_Project.ViewModels
             }
         }
 
+        public void ButtonTwoBackReturnClicked()
+        {
+            ChooseFlightPage = true;
+        }
+
+        public ObservableCollection<Seat> TheSeats
+        {
+            get => this.theSeats;
+            set
+            {
+                this.theSeats = value;
+                OnPropertyChanged(nameof(TheSeats));
+            }
+        }
+
+        public void SeatSelectionRedirect()
+        {
+            SeatSelectionPage = true;
+            TheSeats = SelectedFlight.TheSeats;
+        }
+
+        public async void GuestNext()
+        {
+            foreach ( var j in theTickets )
+            {
+                if ( string.IsNullOrEmpty( j.FirstName) || string.IsNullOrEmpty( j.LastName ) || string.IsNullOrEmpty(j.PhoneNumber ))
+                {
+                    await Shell.Current.DisplayAlert("Complete the form", "Fill-in the incomplete form", "Close");
+                    return;
+                }
+            }
+            AddOnsPage = true;
+        }
+
+        public void selectSeatsOne()
+        {/*
+            if (TheSeats != null)
+            {
+                SelectedSeats.Add(SeatSelect);
+                SeatSelect.IsOccupied = true;
+                TheSeats.RemoveAt(SeatSelect.SeatNumber - 1);
+                TheSeats.Insert(SeatSelect.SeatNumber - 1, SeatSelect);
+            } */
+        }
+        public ObservableCollection<Seat> SelectedSeats
+        {
+            get => this.selectedSeats;
+            set
+            {
+                this.selectedSeats = value;
+                OnPropertyChanged(nameof(SelectedSeats));          
+            }
+        }
         public Ticket MenuSelectPerson
         {
             get => this.menuSelectPerson;
             set
             {
-                if ( SelectedPerson != null )
-                {
-                    SelectedPerson.Clear();
-                }
                 this.menuSelectPerson = value;
                 OnPropertyChanged(nameof(MenuSelectPerson));
-                if ( MenuSelectPerson != null )
-                {
-                    SelectedPerson.Add(MenuSelectPerson);
-                }
+                SelectedPerson.Clear();
+                SelectedPerson.Add(MenuSelectPerson);
+            }
+        }
 
+        public Flight SelectedFlightReturn
+        {
+            get => this.selectedFlightReturn;
+            set
+            {
+                this.selectedFlightReturn = value;
+                OnPropertyChanged(nameof(SelectedFlightReturn));
+                DetailsPage = true;
+                SetPerson(2);
             }
         }
 
@@ -96,6 +185,7 @@ namespace SKAirlines_Project.ViewModels
             PassengerAddPage = true;
             genService = new GenericServices("Flights.json");
             InserterOfData = new ObservableCollection<Ticket>();
+            SelectedPerson = new ObservableCollection<Ticket>();
         }
 
         public ObservableCollection<Ticket> TheTickets
@@ -190,7 +280,15 @@ namespace SKAirlines_Project.ViewModels
             get => this.selectedFlight;
             set
             {
-                DetailsPage = true;
+                if ( TheDataPassed.IsRoundTrip == false)
+                {
+                    DetailsPage = true;
+                }
+                else
+                {
+                    ChooseFlightPageRoundTrip = true;
+                }
+
                 this.selectedFlight = value;
                 OnPropertyChanged(nameof(SelectedFlight));
                 SetPerson( 1 );
@@ -345,6 +443,7 @@ namespace SKAirlines_Project.ViewModels
 
             }
             // add persons 
+            //MenuSelectPerson = TheTickets.First();
             MenuSelectPerson = TheTickets.First();
         } 
     }

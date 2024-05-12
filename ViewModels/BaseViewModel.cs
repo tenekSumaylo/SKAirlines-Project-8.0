@@ -22,6 +22,13 @@ namespace SKAirlines_Project.ViewModels
         private bool chooseFlightPageRoundTrip;
         private DateTime minDate;
 
+        public ICommand GoHomeCommand => new Command(GoHome);
+
+        public async void GoHome()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+
         public void PageConverter()
         {
             PassengerAddPage = false;
