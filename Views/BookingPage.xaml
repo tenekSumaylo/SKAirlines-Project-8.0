@@ -286,7 +286,7 @@
                     </VerticalStackLayout>
                     <VerticalStackLayout>
                         
-                        <CollectionView ItemsSource="{Binding TheSeats}" ItemsLayout="VerticalGrid,8" SelectionMode="Multiple" SelectionChangedCommand="{Binding SelectedSeatsOneCommand}" SelectedItem="{Binding SeatSelect}">
+                        <CollectionView x:Name="SeatSelectionView" ItemsSource="{Binding TheSeats}" ItemsLayout="VerticalGrid,8" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedSeatsOneCommand}" SelectedItem="{Binding SeatSelect}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Seat">
                                     <VerticalStackLayout>
@@ -294,15 +294,15 @@
                                         <Image>
                                             <Image.Triggers>
                                                 <DataTrigger
-                                                    Binding="{Binding IsOccupied}"
+                                                    Binding="{Binding SeatStatus}"
                                                     TargetType="Image"
-                                                    Value="false">
+                                                    Value="0">
                                                     <Setter Property="Source" Value="selectfree.png" />
                                                 </DataTrigger>
                                                 <DataTrigger
-                                                    Binding="{Binding IsOccupied}"
+                                                    Binding="{Binding SeatStatus}"
                                                     TargetType="Image"
-                                                    Value="true">
+                                                    Value="2">
                                                     <Setter Property="Source" Value="selected.png" />
                                                 </DataTrigger>
                                             </Image.Triggers>

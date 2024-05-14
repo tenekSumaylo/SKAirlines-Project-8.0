@@ -10,14 +10,26 @@ namespace SKAirlines_Project.Models
     {
         private string seatID = string.Empty;
         private int seatNumber;
-        private bool isOccupied;
+        private bool isSelector;
+        private int seatStatus; 
 
         public Seat() { }
-        public Seat( string id, int number, bool occupy)
+        public Seat( string id, int number, bool selector, int status)
         {
             SeatID = id + "-" + number;
             SeatNumber = number;
-            IsOccupied = occupy;
+            IsSelector = selector;
+            seatStatus = status;
+        }
+
+        public int SeatStatus
+        {
+            get => this.seatStatus;
+            set
+            {
+                this.seatStatus = value;
+                OnPropertyChanged(nameof(SeatStatus));
+            }
         }
 
         public string SeatID
@@ -40,13 +52,13 @@ namespace SKAirlines_Project.Models
             }
         }
 
-        public bool IsOccupied
+        public bool IsSelector
         {
-            get => this.isOccupied;
+            get => this.isSelector;
             set
             {
-                this.isOccupied = value;
-                OnPropertyChanged(nameof(IsOccupied));
+                this.isSelector = value;
+                OnPropertyChanged(nameof(IsSelector));
             }
         }
 
@@ -54,7 +66,8 @@ namespace SKAirlines_Project.Models
         {
             SeatID = string.Empty;
             SeatNumber = -1;
-            IsOccupied = false;
+            IsSelector = false;
+            SeatStatus = 0;
         }
     }
 }

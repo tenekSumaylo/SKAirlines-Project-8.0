@@ -35,10 +35,12 @@ namespace SKAirlines_Project.ViewModels
         private Ticket testPerson;
         private Flight selectedFlightReturn;
         public ObservableCollection<Ticket> InserterOfData { get; set; }
-        private ObservableCollection<Seat> selectedSeats = new ObservableCollection<Seat>();
-        private Seat seatSelect = new Seat();
+        private ObservableCollection<Seat> selectedSeats;
+        private Seat seatSelect;
         private ObservableCollection<Seat> theSeats = new ObservableCollection<Seat>();
         private List<Seat> testSeats = new List<Seat>();
+        private int totalPerson;
+        private int countSelection; 
 
         // commands
 
@@ -54,6 +56,15 @@ namespace SKAirlines_Project.ViewModels
 
 
         public ICommand SelectedSeatsOneCommand => new Command(selectSeatsOne);
+
+        public BookingPageViewModel()
+        {
+            PassengerAddPage = true;
+            genService = new GenericServices("Flights.json");
+            InserterOfData = new ObservableCollection<Ticket>();
+            SelectedPerson = new ObservableCollection<Ticket>();
+            countSelection = 0;
+        }
 
         public Seat SeatSelect
         {
@@ -104,6 +115,8 @@ namespace SKAirlines_Project.ViewModels
         {
             SeatSelectionPage = true;
             TheSeats = SelectedFlight.TheSeats;
+            SeatSelect = new Seat();
+            SelectedSeats = new ObservableCollection<Seat>();
         }
 
         public async void GuestNext()
@@ -120,14 +133,11 @@ namespace SKAirlines_Project.ViewModels
         }
 
         public void selectSeatsOne()
-        {/*
-            if (TheSeats != null)
-            {
-                SelectedSeats.Add(SeatSelect);
-                SeatSelect.IsOccupied = true;
-                TheSeats.RemoveAt(SeatSelect.SeatNumber - 1);
-                TheSeats.Insert(SeatSelect.SeatNumber - 1, SeatSelect);
-            } */
+        {
+            SeatSelect.IsOccupied = true;
+            //seatSelected.IsOccupied = true;
+            //TheSeats.RemoveAt(seatSelected.SeatNumber - 1);
+            //TheSeats.Insert( seatSelected.SeatNumber - 1, seatSelected );
         }
         public ObservableCollection<Seat> SelectedSeats
         {
@@ -181,12 +191,7 @@ namespace SKAirlines_Project.ViewModels
             }
         }
 
-        public BookingPageViewModel() {
-            PassengerAddPage = true;
-            genService = new GenericServices("Flights.json");
-            InserterOfData = new ObservableCollection<Ticket>();
-            SelectedPerson = new ObservableCollection<Ticket>();
-        }
+
 
         public ObservableCollection<Ticket> TheTickets
         {
@@ -244,6 +249,7 @@ namespace SKAirlines_Project.ViewModels
             if (!(Adult == 0 && Children == 0 && Infant == 0))
             {
                 ChooseFlightPage = true;
+                countSelection = 0;
                 TheTickets.Clear();
                 CreateGuests();
                 return;
