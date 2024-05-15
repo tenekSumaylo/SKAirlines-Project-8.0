@@ -23,7 +23,7 @@ namespace SKAirlines_Project.Models
 
         public Ticket( int typeOfPerson, int number ) : base( typeOfPerson, number )
         {
-
+            BirthDate = DateTime.Now;
         }
 
         public string TicketID

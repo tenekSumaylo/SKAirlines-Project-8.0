@@ -36,11 +36,16 @@ namespace SKAirlines_Project.ViewModels
         private Flight selectedFlightReturn;
         public ObservableCollection<Ticket> InserterOfData { get; set; }
         private ObservableCollection<Seat> selectedSeats;
+        private ObservableCollection<Seat> selectedSeatsReturn;
         private Seat seatSelect;
         private ObservableCollection<Seat> theSeats = new ObservableCollection<Seat>();
         private List<Seat> testSeats = new List<Seat>();
         private int totalPerson;
-        private int countSelection; 
+        private int countSelection;
+        private List<string> option;
+        private int selectIndexForSeats;
+        private bool roundTripCheck;
+
 
         // commands
 
@@ -64,8 +69,59 @@ namespace SKAirlines_Project.ViewModels
             InserterOfData = new ObservableCollection<Ticket>();
             SelectedPerson = new ObservableCollection<Ticket>();
             countSelection = 0;
+            Option = new List<string>()
+            {
+                "For one-way", "For roundtrip"
+            };
         }
 
+        public ObservableCollection<Seat> SelectedSeatsReturn
+        {
+            get => this.selectedSeatsReturn;
+            set
+            {
+                this.selectedSeatsReturn = value;
+                OnPropertyChanged(nameof(SelectedSeatsReturn));
+            }
+        }
+
+        public bool RoundTripCheck
+        {
+            get => this.roundTripCheck;
+            set
+            {
+                this.roundTripCheck = value;
+                OnPropertyChanged(nameof(RoundTripCheck));
+            }
+        }
+
+        public int SelectIndexForSeats
+        {
+            get => this.selectIndexForSeats;
+            set
+            {
+                this.selectIndexForSeats = value;
+                OnPropertyChanged(nameof(SelectIndexForSeats));
+                if ( value == 0 )
+                {
+                    //TheSeats = SelectedFlight.TheSeats;
+                }
+                else
+                {
+                    //TheSeats = SelectedFlightReturn.TheSeats;
+                }
+            }
+        }
+
+        public List<string> Option
+        {
+            get => this.option;
+            set
+            {
+                this.option = value;
+                OnPropertyChanged( nameof(Option) );    
+            }
+        }
         public Seat SeatSelect
         {
             get => this.seatSelect;
@@ -115,8 +171,8 @@ namespace SKAirlines_Project.ViewModels
         {
             SeatSelectionPage = true;
             TheSeats = SelectedFlight.TheSeats;
-            SeatSelect = new Seat();
             SelectedSeats = new ObservableCollection<Seat>();
+            
         }
 
         public async void GuestNext()
@@ -132,9 +188,58 @@ namespace SKAirlines_Project.ViewModels
             AddOnsPage = true;
         }
 
-        public void selectSeatsOne()
+        public async void selectSeatsOne()
         {
-            SeatSelect.IsOccupied = true;
+            if (SelectIndexForSeats == 0)
+            {
+                if (SelectedSeats.Count == totalPerson)
+                {
+                    await Shell.Current.DisplayAlert("Cannot add seats", "You have exceeded the limit", "Confirm");
+                }
+
+                if (SeatSelect.SeatStatus == 1)
+                {
+                    SeatSelect.IsSelector = false;
+                    SeatSelect.SeatStatus = 0;
+                    SelectedSeats.RemoveAt(SeatSelect.SeatNumber - 1);
+                    --countSelection;
+                    return;
+                }
+
+                if (SeatSelect.SeatStatus >= 2)
+                {
+                    await Shell.Current.DisplayAlert("Seat Occupied", "Choose another seat", "Confirm");
+                    return;
+                }
+                SeatSelect.IsSelector = true;
+                SeatSelect.SeatStatus = 1;
+                SelectedSeats.Add(SeatSelect);
+            }
+            else
+            {
+                if (SelectedSeatsReturn.Count == totalPerson)
+                {
+                    await Shell.Current.DisplayAlert("Cannot add seats", "You have exceeded the limit", "Confirm");
+                }
+
+                if (SeatSelect.SeatStatus == 1)
+                {
+                    SeatSelect.IsSelector = false;
+                    SeatSelect.SeatStatus = 0;
+                    SelectedSeatsReturn.RemoveAt(SeatSelect.SeatNumber - 1);
+                    --countSelection;
+                    return;
+                }
+
+                if (SeatSelect.SeatStatus >= 2)
+                {
+                    await Shell.Current.DisplayAlert("Seat Occupied", "Choose another seat", "Confirm");
+                    return;
+                }
+                SeatSelect.IsSelector = true;
+                SeatSelect.SeatStatus = 1;
+                SelectedSeatsReturn.Add(SeatSelect);
+            }
             //seatSelected.IsOccupied = true;
             //TheSeats.RemoveAt(seatSelected.SeatNumber - 1);
             //TheSeats.Insert( seatSelected.SeatNumber - 1, seatSelected );
@@ -146,7 +251,7 @@ namespace SKAirlines_Project.ViewModels
             {
                 this.selectedSeats = value;
                 OnPropertyChanged(nameof(SelectedSeats));          
-            }
+            } 
         }
         public Ticket MenuSelectPerson
         {
@@ -233,6 +338,7 @@ namespace SKAirlines_Project.ViewModels
                 return;
             }
             FlightsAvailable = await genService.SearchFlights(TheDataPassed.Destination, TheDataPassed.Origin, TheDataPassed.OneWay);
+            SelectIndexForSeats = 0;
         }
 
         public void ButtonTwoBackClicked()
@@ -249,7 +355,7 @@ namespace SKAirlines_Project.ViewModels
             if (!(Adult == 0 && Children == 0 && Infant == 0))
             {
                 ChooseFlightPage = true;
-                countSelection = 0;
+                totalPerson = Adult + Children + Infant;
                 TheTickets.Clear();
                 CreateGuests();
                 return;
@@ -354,6 +460,7 @@ namespace SKAirlines_Project.ViewModels
                 this.theDataPassed = value;
                 OnPropertyChanged(nameof(TheDataPassed));
                 SearchFlight();
+                RoundTripCheck = TheDataPassed.IsRoundTrip;
             }
         }
 

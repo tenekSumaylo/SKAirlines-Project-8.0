@@ -65,7 +65,7 @@ public partial class AdminPage : ContentPage
 		Seat checkSeat;
 		for ( int i = 1; i <= Seats; i++ )
 		{
-			checkSeat = new Seat(Convert.ToString(theFlight.PlaneName[0]), i, false);
+			checkSeat = new Seat(Convert.ToString(theFlight.PlaneName[0]), i, false, 0);
 			theFlight.TheSeats.Add(checkSeat);
 		}
 	}

@@ -230,9 +230,8 @@
                 <CollectionView ItemsSource="{Binding SelectedPerson}" SelectionChangedCommand="{Binding SelectedPersonCommand}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Ticket" >
-                            <VerticalStackLayout Margin="15,20,15,0">
-                                
-                                <Label Text="Name" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Start"/>
+                                <VerticalStackLayout Margin="15,20,15,0">
+                                    <Label Text="Name" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Start"/>
                                 <Label Text="First Name                        Last Name" FontAttributes="Bold"/>
                                 <HorizontalStackLayout>
                                     <HorizontalStackLayout Spacing="5">
@@ -275,6 +274,10 @@
                     <ImageButton Source="seatselector.png" Command="{Binding SeatSelectionCommand}"/>
                     <ImageButton Source="baggageselector.png"/>
                 </VerticalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" Margin="0,25,0,0" Spacing="25">
+                    <Button WidthRequest="80" BackgroundColor="#19B0EC" Text="Back"/>
+                    <Button WidthRequest="80" BackgroundColor="#19B0EC" Text="Next"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
       <!--#region -->
             <Grid Grid.Row="1" x:Name="seatSelection" IsVisible="{Binding SeatSelectionPage}">
@@ -282,15 +285,18 @@
                 <VerticalStackLayout Margin="0,0,0,30">
                     <VerticalStackLayout Padding="25,25,0,0">
                     <Label Text="Feel free to select seat" FontAttributes="Bold" FontSize="25"/>
-                    <Label Text="Available seats are unchecked" FontAttributes="Bold" FontSize="15"/>
+                    <Label Text="Available seats are not marked red" FontAttributes="Bold" FontSize="15"/>
                     </VerticalStackLayout>
-                    <VerticalStackLayout>
-                        
+                    <Frame WidthRequest="90" HorizontalOptions="End" Margin="0,0,25,0" HeightRequest="50">
+                        <Picker WidthRequest="90" HeightRequest="50" ItemsSource="{Binding Option}" SelectedIndex="{Binding SelectIndexForSeats}" IsVisible="{Binding RoundTripCheck}"/>
+                    </Frame>
+                    <VerticalStackLayout Margin="0,80,0,0">
+
                         <CollectionView x:Name="SeatSelectionView" ItemsSource="{Binding TheSeats}" ItemsLayout="VerticalGrid,8" SelectionMode="Single" SelectionChangedCommand="{Binding SelectedSeatsOneCommand}" SelectedItem="{Binding SeatSelect}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Seat">
                                     <VerticalStackLayout>
-                                        <Label Text="{Binding SeatID}"/>
+                                        <Label Text="{Binding SeatID}" HorizontalOptions="Center"/>
                                         <Image>
                                             <Image.Triggers>
                                                 <DataTrigger
@@ -298,6 +304,12 @@
                                                     TargetType="Image"
                                                     Value="0">
                                                     <Setter Property="Source" Value="selectfree.png" />
+                                                </DataTrigger>
+                                                <DataTrigger 
+                                                    Binding="{Binding SeatStatus}"
+                                                    TargetType="Image"
+                                                    Value="1">
+                                                    <Setter Property="Source" Value="selection.png"/>
                                                 </DataTrigger>
                                                 <DataTrigger
                                                     Binding="{Binding SeatStatus}"
@@ -313,7 +325,7 @@
                         </CollectionView>
                     </VerticalStackLayout>
                     <HorizontalStackLayout Padding="0,180,0,0" HorizontalOptions="Center">
-                        <Button Text="Save Seat" BackgroundColor="#19B0EC" />
+                        <Button Text="Save Seat" BackgroundColor="Red" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Grid>
