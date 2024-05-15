@@ -20,7 +20,9 @@ namespace SKAirlines_Project.ViewModels
         private bool addOnsPage;
         private bool seatSelectionPage;
         private bool chooseFlightPageRoundTrip;
+        private bool luggagePage;
         private DateTime minDate;
+        private bool showTicketPage;
 
         public ICommand GoHomeCommand => new Command(GoHome);
 
@@ -29,6 +31,19 @@ namespace SKAirlines_Project.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
+        public bool ShowTicketPage
+        {
+            get => this.showTicketPage;
+            set
+            {
+                if ( value == true )
+                {
+                    PageConverter();
+                }
+                this.showTicketPage = value ;
+                OnPropertyChanged(nameof(ShowTicketPage));
+            }
+        }
         public void PageConverter()
         {
             PassengerAddPage = false;
@@ -37,6 +52,22 @@ namespace SKAirlines_Project.ViewModels
             AddOnsPage = false;
             SeatSelectionPage = false;
             ChooseFlightPageRoundTrip = false;
+            LuggagePage = false;
+            ShowTicketPage = false;
+        }
+
+        public bool LuggagePage
+        {
+            get => this.luggagePage;
+            set
+            {
+                if (value == true)
+                {
+                    PageConverter();
+                }
+                this.luggagePage = value;
+                OnPropertyChanged(nameof(LuggagePage));
+            }
         }
 
         public DateTime MinDate

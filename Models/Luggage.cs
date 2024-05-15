@@ -23,6 +23,8 @@ namespace SKAirlines_Project.Models
             ChargePerLuggage = charge;
         }
 
+        public Luggage() { }
+
         public string LuggageID
         {
             get => this.luggageID;

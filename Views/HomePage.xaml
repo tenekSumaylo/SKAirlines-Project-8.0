@@ -52,7 +52,7 @@
                         </Grid>
                         <Frame Grid.Row="2">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Otin}" FontSize="100"/>
+ 
                                 <Label Text="Why Everyone" FontSize="30"/>
                                 <Label Text="Flies" FontSize="30"/>
                                 <Image Source="mainpagepicture.png"/>

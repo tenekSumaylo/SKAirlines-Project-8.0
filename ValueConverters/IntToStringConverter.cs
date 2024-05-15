@@ -15,6 +15,10 @@ namespace SKAirlines_Project.ValueConverters
             {
                 return value.ToString();
             }
+            else if ( value is double)
+            {
+                return value.ToString();
+            }
             return "";
         }
 
